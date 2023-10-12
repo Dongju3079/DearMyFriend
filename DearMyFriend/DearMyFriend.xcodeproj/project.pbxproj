@@ -30,6 +30,7 @@
 		EBD435272AD7A9290070198E /* FeedTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435262AD7A9290070198E /* FeedTitleView.swift */; };
 		EBD4352A2AD7B9080070198E /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435292AD7B9080070198E /* FeedTableViewCell.swift */; };
 		EBD4352C2AD7B9160070198E /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4352B2AD7B9160070198E /* FeedView.swift */; };
+		EBD435332AD7FD880070198E /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435322AD7FD880070198E /* ImageCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		EBD435262AD7A9290070198E /* FeedTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTitleView.swift; sourceTree = "<group>"; };
 		EBD435292AD7B9080070198E /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		EBD4352B2AD7B9160070198E /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		EBD435322AD7FD880070198E /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				EBD435292AD7B9080070198E /* FeedTableViewCell.swift */,
+				EBD435322AD7FD880070198E /* ImageCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				52D998172AD6A89600679B15 /* AppDelegate.swift in Sources */,
 				EBD4352A2AD7B9080070198E /* FeedTableViewCell.swift in Sources */,
 				52D9983F2AD6ABB500679B15 /* StoreViewController.swift in Sources */,
+				EBD435332AD7FD880070198E /* ImageCollectionViewCell.swift in Sources */,
 				52D9982B2AD6AADC00679B15 /* FeedViewController.swift in Sources */,
 				52D9983B2AD6AB9B00679B15 /* MapViewController.swift in Sources */,
 				52D9984E2AD6B88600679B15 /* MainCollectionView.swift in Sources */,

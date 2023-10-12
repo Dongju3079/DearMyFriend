@@ -5,17 +5,20 @@
 import Foundation
 import UIKit
 
-class FeedView: UIView {
+class FeedView: UIView, UIScrollViewDelegate {
     // MARK: Properties
     // View
     let topViewHeight: CGFloat = 50
     // Label
-    let userNicknameLabelSize: CGFloat = 20
-    
+    let userNicknameLabelSize: CGFloat = 15
     // Button
     let likeButtonSize: CGFloat = 30
     let likeButtonImage: String = "heart"
     let likeButtonColor: UIColor = .black
+    // image scrollView
+    let imageScrollViewHeight: CGFloat = 200
+    var imageViews: [UIImageView] = []
+    let imageNames: [String] = ["spider1", "spider2", "spider3"]
     
     lazy var userNicknameLabel: UILabel = {
         let label = UILabel()
@@ -39,16 +42,6 @@ class FeedView: UIView {
         return button
     }()
     
-    // 작성자와 좋아요 버튼 묶음.
-    lazy var topView: UIView = {
-        let view = UIView()
-        
-        view.addSubview(userNicknameLabel)
-        view.addSubview(likeButton)
-        
-        return view
-    }()
-    
     // MARK: Initalizers
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,7 +60,7 @@ class FeedView: UIView {
     }
     
     private func setUI(){
-        [userNicknameLabel, likeButton, topView].forEach { view in
+        [userNicknameLabel, likeButton].forEach { view in
             addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -76,7 +69,6 @@ class FeedView: UIView {
     private func setConstraint() {
         setNicknameLabelConstraint()
         setLikeButtonConstraint()
-        setTopViewConstraint()
     }
     
     private func setNicknameLabelConstraint() {
@@ -84,7 +76,6 @@ class FeedView: UIView {
             userNicknameLabel.topAnchor.constraint(equalTo: topAnchor),
             userNicknameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             userNicknameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            userNicknameLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
@@ -92,16 +83,10 @@ class FeedView: UIView {
         NSLayoutConstraint.activate([
             likeButton.topAnchor.constraint(equalTo: topAnchor),
             likeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            likeButton.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
-    private func setTopViewConstraint() {
-        NSLayoutConstraint.activate([
-            topView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            topView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            topView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            topView.heightAnchor.constraint(equalToConstant: topViewHeight)
-        ])
-    }
+    // MARK: Action
 }
+
+
