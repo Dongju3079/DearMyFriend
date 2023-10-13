@@ -6,44 +6,14 @@ class FeedViewController: UIViewController {
     let feedTitleView: FeadTitleView = .init(frame: .zero)
     let feedTitleViewHeight: CGFloat = 50
     
+    // TableView
     private let feedTableView = UITableView()
-    
-    let imageNames: [String] = ["spider1.png", "spider2.png", "spider3.png"]
-    
-    lazy var collectionView: UICollectionView = {
-        
-        // collection view layout setting
-        let layout = UICollectionViewFlowLayout.init()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.footerReferenceSize = .zero
-        layout.headerReferenceSize = .zero
-        
-        // collection view setting
-        let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        v.isScrollEnabled = true
-        v.isPagingEnabled = true
-        v.showsHorizontalScrollIndicator = false
-        v.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
-        v.delegate = self
-        v.dataSource = self
-        
-        return v
-    }()
-    
-    lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.currentPageIndicatorTintColor = .yellow
-        pageControl.pageIndicatorTintColor = .green
-        
-        return pageControl
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configure()
+//        setupCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +26,7 @@ class FeedViewController: UIViewController {
         view.backgroundColor = .white
         setupFeedTitleView()
         setupTableView()
-        setupImageCollectionView()
+//        setupImageCollectionView()
     }
     
     private func setupFeedTitleView() {
@@ -68,28 +38,6 @@ class FeedViewController: UIViewController {
             feedTitleView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             feedTitleView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             feedTitleView.heightAnchor.constraint(equalToConstant: feedTitleViewHeight)
-        ])
-    }
-    
-    private func setupImageCollectionView() {
-        view.addSubview(collectionView)
-        view.addSubview(pageControl)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: feedTitleView.bottomAnchor, constant: 10),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.widthAnchor.constraint(equalToConstant: 200),
-            collectionView.heightAnchor.constraint(equalToConstant: 200),
-        ])
-        
-        NSLayoutConstraint.activate([
-            pageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 10),
-            pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            pageControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -125,34 +73,5 @@ extension FeedViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.identifier, for: indexPath) as! FeedTableViewCell
         
         return cell
-    }
-}
-
-extension FeedViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // page control 설정.
-        if scrollView.frame.size.width != 0 {
-            let value = (scrollView.contentOffset.x / scrollView.frame.width)
-            pageControl.currentPage = Int(round(value))
-        }
-    }
-}
-
-extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        pageControl.numberOfPages = imageNames.count
-        return self.imageNames.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
-        
-        cell.configure(image: imageNames[indexPath.item])
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
 }

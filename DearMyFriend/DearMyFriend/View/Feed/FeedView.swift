@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class FeedView: UIView, UIScrollViewDelegate {
+class FeedView: UIView {
     // MARK: Properties
     // View
     let topViewHeight: CGFloat = 50
@@ -42,6 +42,33 @@ class FeedView: UIView, UIScrollViewDelegate {
         return button
     }()
     
+    lazy var imageCollectionView: UICollectionView = {
+        // collectionView layout setting
+        let layout = UICollectionViewFlowLayout.init()
+        layout.scrollDirection = .horizontal // 스크롤 방향 설정
+        layout.minimumLineSpacing = 0 // 라인 간격
+        layout.minimumInteritemSpacing = 0 // 항목 간격
+        layout.footerReferenceSize = .zero // 헤더 사이즈 설정
+        layout.headerReferenceSize = .zero // 푸터 사이즈 설정
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isScrollEnabled = true // 스크롤 활성화
+        collectionView.isPagingEnabled = true // 페이징 활성화
+        collectionView.showsHorizontalScrollIndicator = false // 수평 스크롤바를 숨김.
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+        collectionView.backgroundColor = .red
+        
+        return collectionView
+    }()
+    
+    lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.currentPageIndicatorTintColor = .yellow
+        pageControl.pageIndicatorTintColor = .green
+        
+        return pageControl
+    }()
+    
     // MARK: Initalizers
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,7 +87,7 @@ class FeedView: UIView, UIScrollViewDelegate {
     }
     
     private func setUI(){
-        [userNicknameLabel, likeButton].forEach { view in
+        [userNicknameLabel, likeButton, imageCollectionView, pageControl].forEach { view in
             addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -69,6 +96,8 @@ class FeedView: UIView, UIScrollViewDelegate {
     private func setConstraint() {
         setNicknameLabelConstraint()
         setLikeButtonConstraint()
+        setImageCollectionViewConstraint()
+        setPageControlConstraint()
     }
     
     private func setNicknameLabelConstraint() {
@@ -86,7 +115,33 @@ class FeedView: UIView, UIScrollViewDelegate {
         ])
     }
     
+    private func setImageCollectionViewConstraint() {
+        NSLayoutConstraint.activate([
+            imageCollectionView.topAnchor.constraint(equalTo: userNicknameLabel.bottomAnchor, constant: 10),
+            imageCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageCollectionView.widthAnchor.constraint(equalToConstant: 200),
+            imageCollectionView.heightAnchor.constraint(equalToConstant: 200),
+        ])
+    }
+    
+    private func setPageControlConstraint() {
+        NSLayoutConstraint.activate([
+            pageControl.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: 10),
+            pageControl.leadingAnchor.constraint(equalTo: leadingAnchor),
+            pageControl.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
     // MARK: Action
+//    func collectionViewDelegate() {
+//        imageCollectionView.delegate = self
+//    }
+//
+//    func collectionViewDataSource() {
+//        imageCollectionView.dataSource = self
+//    }
 }
 
 
