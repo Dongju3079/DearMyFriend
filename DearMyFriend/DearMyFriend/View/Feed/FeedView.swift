@@ -13,8 +13,8 @@ class FeedView: UIView {
     let likeButtonSize: CGFloat = 20
     let likeButtonImage: String = "heart"
     let likeButtonColor: UIColor = .black
-    // Image ScrollView & Page Control
-    let imageScrollViewHeight: CGFloat = 200
+    // Image CollectionView & Page Control
+    let imageCollectionViewHeight: CGFloat = 200
     var imageViews: [UIImageView] = []
     let imageNames: [String] = ["spider1", "spider2", "spider3"]
     let pageControlHeight: CGFloat = 30
@@ -136,7 +136,7 @@ class FeedView: UIView {
             imageCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
 //            imageCollectionView.widthAnchor.constraint(equalToConstant: 200),
-            imageCollectionView.heightAnchor.constraint(equalToConstant: imageScrollViewHeight),
+            imageCollectionView.heightAnchor.constraint(equalToConstant: imageCollectionViewHeight),
         ])
     }
     

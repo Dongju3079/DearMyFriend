@@ -5,14 +5,21 @@
 import Foundation
 import UIKit
 
+protocol AddPostViewDelegate: AnyObject {
+    func imageViewTapped()
+}
+
 class AddPostView: UIView {
     
     // MARK: Properties
     // Label & Button
     let topViewHeight: CGFloat = 30
-    let userNicknameLabelSize: CGFloat = 15
+    let userNicknameLabelSize: CGFloat = 25
     let buttonSize: CGFloat = 20
     let buttonColor: UIColor = .black
+    var delegate: AddPostViewDelegate?
+    // Image
+    let imageViewHeight: CGFloat = 300
     
     lazy var userNicknameLabel: UILabel = {
         let label = UILabel()
@@ -37,10 +44,25 @@ class AddPostView: UIView {
     lazy var cancelPostButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("업로드", for: .normal)
+        button.setTitle("취소", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: buttonSize)
         button.setTitleColor(buttonColor, for: .normal)
         
+        return button
+    }()
+    
+    lazy var postImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "spider1")
+
+        return imageView
+    }()
+    
+    lazy var imagePickerButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .clear
+        button.addTarget(self, action: #selector(profileImageViewTapped), for: .touchUpInside)
         return button
     }()
     
@@ -62,7 +84,7 @@ class AddPostView: UIView {
     }
     
     private func setUI(){
-        [userNicknameLabel, uploadPostButton, cancelPostButton].forEach { view in
+        [userNicknameLabel, uploadPostButton, cancelPostButton, postImageView, imagePickerButton].forEach { view in
             addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -70,7 +92,9 @@ class AddPostView: UIView {
     
     private func setConstraint() {
         setNicknameLabelConstraint()
+        setCancelPostButtonConstraint()
         setAddPostButtonConstraint()
+        setPostImageViewConstraint()
     }
     
     private func setNicknameLabelConstraint() {
@@ -82,21 +106,41 @@ class AddPostView: UIView {
         ])
     }
     
+    private func setCancelPostButtonConstraint() {
+        NSLayoutConstraint.activate([
+            cancelPostButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            cancelPostButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            cancelPostButton.heightAnchor.constraint(equalToConstant: topViewHeight)
+        ])
+    }
+    
     private func setAddPostButtonConstraint() {
         NSLayoutConstraint.activate([
             uploadPostButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            uploadPostButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            uploadPostButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            uploadPostButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
             uploadPostButton.heightAnchor.constraint(equalToConstant: topViewHeight)
         ])
     }
     
-    private func setCancelPostButtonConstraint() {
+    private func setPostImageViewConstraint() {
         NSLayoutConstraint.activate([
-            cancelPostButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            cancelPostButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            cancelPostButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            cancelPostButton.heightAnchor.constraint(equalToConstant: topViewHeight)
+            postImageView.topAnchor.constraint(equalTo: userNicknameLabel.bottomAnchor, constant: 10),
+            postImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            postImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            postImageView.heightAnchor.constraint(equalToConstant: imageViewHeight),
+            
+            imagePickerButton.topAnchor.constraint(equalTo: postImageView.topAnchor),
+            imagePickerButton.leadingAnchor.constraint(equalTo: postImageView.leadingAnchor),
+            imagePickerButton.trailingAnchor.constraint(equalTo: postImageView.trailingAnchor),
+            imagePickerButton.bottomAnchor.constraint(equalTo: postImageView.bottomAnchor)
         ])
     }
+    
+    // MARK: - Action
+    @objc private func profileImageViewTapped() {
+        print("image 클릭")
+        delegate?.imageViewTapped()
+    }
 }
+
+

@@ -6,9 +6,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
     static let identifier = "ImageCollectionViewCell"
     
     private let imageView: UIImageView = {
-        let v = UIImageView()
-        v.contentMode = .scaleAspectFit
-        return v
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     // MARK: Initalizers
