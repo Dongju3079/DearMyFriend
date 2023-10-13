@@ -31,6 +31,8 @@
 		EBD4352A2AD7B9080070198E /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435292AD7B9080070198E /* FeedTableViewCell.swift */; };
 		EBD4352C2AD7B9160070198E /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4352B2AD7B9160070198E /* FeedView.swift */; };
 		EBD435332AD7FD880070198E /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435322AD7FD880070198E /* ImageCollectionViewCell.swift */; };
+		EBD435352AD8E3F60070198E /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435342AD8E3F60070198E /* AddPostView.swift */; };
+		EBD435372AD8E91D0070198E /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435362AD8E91D0070198E /* AddPostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		EBD435292AD7B9080070198E /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		EBD4352B2AD7B9160070198E /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		EBD435322AD7FD880070198E /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		EBD435342AD8E3F60070198E /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
+		EBD435362AD8E91D0070198E /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				52D9982A2AD6AADC00679B15 /* FeedViewController.swift */,
+				EBD435362AD8E91D0070198E /* AddPostViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 				EBD435282AD7B8E30070198E /* Cell */,
 				EBD435262AD7A9290070198E /* FeedTitleView.swift */,
 				EBD4352B2AD7B9160070198E /* FeedView.swift */,
+				EBD435342AD8E3F60070198E /* AddPostView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -283,6 +289,7 @@
 				52D998332AD6AB0E00679B15 /* YouTubeViewController.swift in Sources */,
 				52D9984C2AD6B32F00679B15 /* Helper.swift in Sources */,
 				52D998562AD6CDF900679B15 /* TabBarController.swift in Sources */,
+				EBD435372AD8E91D0070198E /* AddPostViewController.swift in Sources */,
 				EBD435272AD7A9290070198E /* FeedTitleView.swift in Sources */,
 				52D998502AD6BAC000679B15 /* MainMenuCellView.swift in Sources */,
 				52D9982F2AD6AAF800679B15 /* UserInfoViewController.swift in Sources */,
@@ -298,6 +305,7 @@
 				52D9982D2AD6AAF000679B15 /* MyViewController.swift in Sources */,
 				52D9984A2AD6B0B900679B15 /* Extension.swift in Sources */,
 				52D998352AD6AB1800679B15 /* CalculatorViewController.swift in Sources */,
+				EBD435352AD8E3F60070198E /* AddPostView.swift in Sources */,
 				52D998192AD6A89600679B15 /* SceneDelegate.swift in Sources */,
 				52D9983D2AD6ABA700679B15 /* WishViewController.swift in Sources */,
 				52D998372AD6AB2900679B15 /* MainViewController.swift in Sources */,

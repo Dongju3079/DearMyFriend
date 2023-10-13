@@ -5,7 +5,11 @@
 import Foundation
 import UIKit
 
-class FeadTitleView: UIView {
+protocol FeadTitleViewDelegate: AnyObject {
+    func addButtonTapped()
+}
+
+class FeedTitleView: UIView {
     
     // MARK: Properties
     // Label
@@ -15,6 +19,7 @@ class FeadTitleView: UIView {
     let addPostButtonSize: CGFloat = 30
     let addPostButtonImage: String = "plus.app"
     let addPostButtonColor: UIColor = .black
+    var delegate: FeadTitleViewDelegate?
     
     lazy var userNicknameLabel: UILabel = {
         let label = UILabel()
@@ -34,6 +39,8 @@ class FeadTitleView: UIView {
         
         button.setImage(image, for: .normal)
         button.tintColor = addPostButtonColor
+        
+        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -82,5 +89,11 @@ class FeadTitleView: UIView {
             addPostButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
             addPostButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    // MARK: Action
+    @objc func addButtonTapped() {
+        print("action")
+        delegate?.addButtonTapped()
     }
 }

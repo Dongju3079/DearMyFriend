@@ -7,18 +7,19 @@ import UIKit
 
 class FeedView: UIView {
     // MARK: Properties
-    // View
-    let topViewHeight: CGFloat = 50
-    // Label
+    // Label & Button
+    let topViewHeight: CGFloat = 30
     let userNicknameLabelSize: CGFloat = 15
-    // Button
-    let likeButtonSize: CGFloat = 30
+    let likeButtonSize: CGFloat = 20
     let likeButtonImage: String = "heart"
     let likeButtonColor: UIColor = .black
-    // image scrollView
+    // Image ScrollView & Page Control
     let imageScrollViewHeight: CGFloat = 200
     var imageViews: [UIImageView] = []
     let imageNames: [String] = ["spider1", "spider2", "spider3"]
+    let pageControlHeight: CGFloat = 30
+    // TextView
+    let postTextViewHeight: CGFloat = 100
     
     lazy var userNicknameLabel: UILabel = {
         let label = UILabel()
@@ -69,6 +70,17 @@ class FeedView: UIView {
         return pageControl
     }()
     
+    lazy var postTextView: UITextView = {
+       let textView = UITextView()
+        textView.isEditable = false
+        textView.isSelectable = true
+        
+        textView.backgroundColor = .blue
+        textView.text = "Test 입니다."
+        
+        return textView
+    }()
+    
     // MARK: Initalizers
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -87,7 +99,7 @@ class FeedView: UIView {
     }
     
     private func setUI(){
-        [userNicknameLabel, likeButton, imageCollectionView, pageControl].forEach { view in
+        [userNicknameLabel, likeButton, imageCollectionView, pageControl, postTextView].forEach { view in
             addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -98,6 +110,7 @@ class FeedView: UIView {
         setLikeButtonConstraint()
         setImageCollectionViewConstraint()
         setPageControlConstraint()
+        setPostTextViewConstraint()
     }
     
     private func setNicknameLabelConstraint() {
@@ -105,6 +118,7 @@ class FeedView: UIView {
             userNicknameLabel.topAnchor.constraint(equalTo: topAnchor),
             userNicknameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             userNicknameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            userNicknameLabel.heightAnchor.constraint(equalToConstant: topViewHeight)
         ])
     }
     
@@ -112,36 +126,37 @@ class FeedView: UIView {
         NSLayoutConstraint.activate([
             likeButton.topAnchor.constraint(equalTo: topAnchor),
             likeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            likeButton.heightAnchor.constraint(equalToConstant: topViewHeight)
         ])
     }
     
     private func setImageCollectionViewConstraint() {
         NSLayoutConstraint.activate([
-            imageCollectionView.topAnchor.constraint(equalTo: userNicknameLabel.bottomAnchor, constant: 10),
+            imageCollectionView.topAnchor.constraint(equalTo: userNicknameLabel.bottomAnchor),
             imageCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageCollectionView.widthAnchor.constraint(equalToConstant: 200),
-            imageCollectionView.heightAnchor.constraint(equalToConstant: 200),
+//            imageCollectionView.widthAnchor.constraint(equalToConstant: 200),
+            imageCollectionView.heightAnchor.constraint(equalToConstant: imageScrollViewHeight),
         ])
     }
     
     private func setPageControlConstraint() {
         NSLayoutConstraint.activate([
-            pageControl.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: 10),
+            pageControl.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: -pageControlHeight),
             pageControl.leadingAnchor.constraint(equalTo: leadingAnchor),
             pageControl.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            pageControl.heightAnchor.constraint(equalToConstant: pageControlHeight)
         ])
     }
     
-    // MARK: Action
-//    func collectionViewDelegate() {
-//        imageCollectionView.delegate = self
-//    }
-//
-//    func collectionViewDataSource() {
-//        imageCollectionView.dataSource = self
-//    }
+    private func setPostTextViewConstraint() {
+        NSLayoutConstraint.activate([
+            postTextView.topAnchor.constraint(equalTo: pageControl.bottomAnchor),
+            postTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            postTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            postTextView.heightAnchor.constraint(equalToConstant: postTextViewHeight)
+        ])
+    }
 }
 
 

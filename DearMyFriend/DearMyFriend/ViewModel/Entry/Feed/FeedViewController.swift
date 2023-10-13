@@ -3,7 +3,7 @@ import UIKit
 class FeedViewController: UIViewController {
     
     // MARK: Properties
-    let feedTitleView: FeadTitleView = .init(frame: .zero)
+    let feedTitleView: FeedTitleView = .init(frame: .zero)
     let feedTitleViewHeight: CGFloat = 50
     
     // TableView
@@ -13,7 +13,6 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         
         configure()
-//        setupCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,12 +25,12 @@ class FeedViewController: UIViewController {
         view.backgroundColor = .white
         setupFeedTitleView()
         setupTableView()
-//        setupImageCollectionView()
     }
     
     private func setupFeedTitleView() {
         view.addSubview(feedTitleView)
         feedTitleView.translatesAutoresizingMaskIntoConstraints = false
+        feedTitleView.delegate = self // UIView와 UIViewController 간의 통신을 설정하는 부분. 그리하여 UIView클래스에서 Delegate 프로토콜을 정의하고 Delegate 프로퍼티를 선언하더라도, UIViewController에서 Delegate를 설정하지 않는다면 UIView에서 발생한 이벤트가 UIViewController로 전달되지 않는다.
         
         NSLayoutConstraint.activate([
             feedTitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -43,7 +42,7 @@ class FeedViewController: UIViewController {
     
     func setupTableView(){
         feedTableView.dataSource = self
-        feedTableView.rowHeight = 300
+        feedTableView.rowHeight = 330
         
         feedTableView.register(FeedTableViewCell.self, forCellReuseIdentifier: FeedTableViewCell.identifier)
         
@@ -73,5 +72,13 @@ extension FeedViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.identifier, for: indexPath) as! FeedTableViewCell
         
         return cell
+    }
+}
+
+extension FeedViewController: FeadTitleViewDelegate {
+    func addButtonTapped() {
+        print("test")
+        let addPostViewController = AddPostViewController()
+        present(addPostViewController, animated: true, completion: nil)
     }
 }

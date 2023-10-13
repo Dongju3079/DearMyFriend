@@ -65,7 +65,6 @@ extension FeedTableViewCell: UIScrollViewDelegate {
 
 extension FeedTableViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(imageNames.count, "count")
         feedView.pageControl.numberOfPages = imageNames.count
         return self.imageNames.count
     }
