@@ -67,17 +67,6 @@ class YouTubeTableViewCell: UITableViewCell {
         
         selectionStyle = .none
     }
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        if selected {
-//            contentView.layer.borderWidth = 1
-//            contentView.layer.borderColor = UIColor.blue.cgColor
-//        } else {
-//            contentView.layer.borderWidth = 1
-//            contentView.layer.borderColor = UIColor(named: "셀컬러")?.cgColor
-//        }
-//    }
     
     convenience init() {
         self.init(style: .default, reuseIdentifier: "youtubeCell")

@@ -12,8 +12,8 @@ class YouTubeViewController: UIViewController {
     private let 유튜브링크테이블뷰 = {
         let tableView = UITableView()
         tableView.backgroundColor = UIColor(named: "뷰컬러")
-        tableView.isUserInteractionEnabled = true // 이 부분을 추가해보세요.
-
+        tableView.isUserInteractionEnabled = true
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
 
@@ -23,8 +23,6 @@ class YouTubeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "뷰컬러")
         navigationController?.isNavigationBarHidden = true
-
-        // title = "유튜브"
 
         유튜브테이블뷰레이아웃()
         유튜브링크테이블뷰.dataSource = self
@@ -82,7 +80,7 @@ extension YouTubeViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("셀클릭")
+        print("\(youtubeData.유튜브데이터[indexPath.row].title) 링크로 이동")
         let selectedLink = youtubeData.유튜브데이터[indexPath.row].link
 
         if let url = URL(string: selectedLink) {
