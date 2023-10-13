@@ -12,8 +12,11 @@ class YouTubeTableViewCell: UITableViewCell {
     var 유튜브체널이미지: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 20
+        imageView.clipsToBounds = false
+        imageView.layer.cornerRadius = 10
+        imageView.layer.borderWidth = 1
+        imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -36,8 +39,8 @@ class YouTubeTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.backgroundColor = UIColor(named: "셀컬러")
-        layer.borderWidth = 2
-        layer.cornerRadius = 20
+        layer.borderWidth = 1
+        layer.cornerRadius = 10
    
         addSubview(유튜브체널이미지)
         addSubview(유튜브체널라벨)
@@ -45,7 +48,8 @@ class YouTubeTableViewCell: UITableViewCell {
         
         유튜브체널이미지.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
-            make.width.equalTo(140)
+            make.width.equalTo(120)
+            make.height.equalTo(100)
         }
         
         유튜브체널라벨.snp.makeConstraints { make in
@@ -60,7 +64,20 @@ class YouTubeTableViewCell: UITableViewCell {
             make.leading.equalTo(유튜브체널이미지.snp.trailing).offset(8)
             make.trailing.equalToSuperview().offset(-8)
         }
+        
+        selectionStyle = .none
     }
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//
+//        if selected {
+//            contentView.layer.borderWidth = 1
+//            contentView.layer.borderColor = UIColor.blue.cgColor
+//        } else {
+//            contentView.layer.borderWidth = 1
+//            contentView.layer.borderColor = UIColor(named: "셀컬러")?.cgColor
+//        }
+//    }
     
     convenience init() {
         self.init(style: .default, reuseIdentifier: "youtubeCell")

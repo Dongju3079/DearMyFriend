@@ -4,20 +4,20 @@ import Lottie
 import SnapKit
 import UIKit
 
-//MARK: - Youtube추천 페이지
+// MARK: - Youtube추천 페이지
 
 class YouTubeViewController: UIViewController {
-    let youtubeData = DataForYoutube(thumbnail: "", title: "", description: "")
+    let youtubeData = DataForYoutube(thumbnail: "", title: "", description: "", link: "")
 
     private let 유튜브링크테이블뷰 = {
         let tableView = UITableView()
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = UIColor(named: "뷰컬러")
+        tableView.isUserInteractionEnabled = true // 이 부분을 추가해보세요.
 
         return tableView
     }()
 
-    
-    //MARK: - Life Cycle
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +31,6 @@ class YouTubeViewController: UIViewController {
         유튜브링크테이블뷰.delegate = self
         유튜브링크테이블뷰.register(YouTubeTableViewCell.self, forCellReuseIdentifier: "CellForYoutube")
     }
-
-    
 }
 
 // MARK: - ** EXTENSION **
@@ -40,7 +38,8 @@ class YouTubeViewController: UIViewController {
 //
 //
 //
-//MARK: - 유아이 레이아웃
+
+// MARK: - 유아이 레이아웃
 
 extension YouTubeViewController {
     func 유튜브테이블뷰레이아웃() {
@@ -56,19 +55,16 @@ extension YouTubeViewController {
     }
 }
 
-
 // MARK: - 테이블뷰
 
 extension YouTubeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
+        return 120
     }
 
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return false
+        return true
     }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         youtubeData.유튜브데이터.count
@@ -77,12 +73,21 @@ extension YouTubeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellForYoutube", for: indexPath) as! YouTubeTableViewCell
 
-        let (thumbnail, title, link) = youtubeData.유튜브데이터[indexPath.row]
+        let (thumbnail, title, description, link) = youtubeData.유튜브데이터[indexPath.row]
         cell.유튜브체널이미지.image = UIImage(named: thumbnail)
         cell.유튜브체널라벨.text = title
-        cell.유튜브링크라벨.text = link
+        cell.유튜브링크라벨.text = description
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("셀클릭")
+        let selectedLink = youtubeData.유튜브데이터[indexPath.row].link
+
+        if let url = URL(string: selectedLink) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
 }
 
