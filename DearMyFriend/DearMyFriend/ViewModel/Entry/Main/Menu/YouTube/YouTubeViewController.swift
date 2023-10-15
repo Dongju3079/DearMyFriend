@@ -9,12 +9,35 @@ import UIKit
 class YouTubeViewController: UIViewController {
     let youtubeData = DataForYoutube(thumbnail: "", title: "", description: "", link: "")
 
+    private let 페이지이름 = {
+        let label = UILabel()
+        label.text = "추천 유튜버"
+        label.textColor = UIColor(named: "텍스트컬러")
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textAlignment = .center
+        return label
+    }()
+
     private let 유튜브링크테이블뷰 = {
         let tableView = UITableView()
         tableView.backgroundColor = UIColor(named: "뷰컬러")
         tableView.isUserInteractionEnabled = true
         tableView.showsVerticalScrollIndicator = false
         return tableView
+    }()
+
+    private let 왼쪽사이드 = {
+        let newView = UIView()
+        newView.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
+        newView.layer.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.4).cgColor
+        return newView
+    }()
+
+    private let 오른쪽사이드 = {
+        let newView = UIView()
+        newView.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
+        newView.layer.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.4).cgColor
+        return newView
     }()
 
     // MARK: - Life Cycle
@@ -26,6 +49,9 @@ class YouTubeViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+        navigationItem.hidesBackButton = true
+        유아이레이아웃()
+        사이드레이아웃()
         유튜브테이블뷰레이아웃()
         유튜브링크테이블뷰.dataSource = self
         유튜브링크테이블뷰.delegate = self
@@ -42,15 +68,46 @@ class YouTubeViewController: UIViewController {
 // MARK: - 유아이 레이아웃
 
 extension YouTubeViewController {
+    //
+    func 유아이레이아웃() {
+        for 유아이 in [페이지이름] {
+            view.addSubview(유아이)
+        }
+        페이지이름.snp.makeConstraints { make in
+            make.width.equalTo(139)
+            make.height.equalTo(24)
+            make.leading.equalToSuperview().offset(20)
+            make.top.equalToSuperview().offset(87)
+        }
+    }
+
     func 유튜브테이블뷰레이아웃() {
         view.addSubview(유튜브링크테이블뷰)
         유튜브링크테이블뷰.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(200)
-            make.bottom.equalToSuperview().offset(-50)
-            make.leading.equalToSuperview().offset(10)
-            make.trailing.equalToSuperview().offset(-10)
+            make.top.equalToSuperview().offset(155)
+            make.bottom.equalToSuperview().offset(-49)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
+        }
+    }
+
+    func 사이드레이아웃() {
+        for 사이드 in [왼쪽사이드, 오른쪽사이드] {
+            view.addSubview(사이드)
+        }
+        왼쪽사이드.snp.makeConstraints { make in
+            make.width.equalTo(20)
+            make.height.equalTo(908)
+            make.leading.equalToSuperview()
+            make.top.equalToSuperview()
+        }
+        오른쪽사이드.snp.makeConstraints { make in
+            make.width.equalTo(20)
+            make.height.equalTo(908)
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
         }
     }
 }

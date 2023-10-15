@@ -54,14 +54,14 @@ class YouTubeTableViewCell: UITableViewCell {
         
         유튜브체널라벨.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
-            make.leading.equalTo(유튜브체널이미지.snp.trailing).offset(8)
+            make.leading.equalTo(유튜브체널이미지.snp.trailing).offset(14)
             make.trailing.equalToSuperview().offset(-8)
         }
         
         유튜브링크라벨.snp.makeConstraints { make in
             make.top.equalTo(유튜브체널라벨.snp.bottom).offset(15)
             make.bottom.equalToSuperview().offset(-8)
-            make.leading.equalTo(유튜브체널이미지.snp.trailing).offset(8)
+            make.leading.equalTo(유튜브체널이미지.snp.trailing).offset(14)
             make.trailing.equalToSuperview().offset(-8)
         }
         
