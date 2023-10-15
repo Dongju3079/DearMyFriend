@@ -22,8 +22,10 @@ class YouTubeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "뷰컬러")
-        navigationController?.isNavigationBarHidden = true
-
+        // navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
         유튜브테이블뷰레이아웃()
         유튜브링크테이블뷰.dataSource = self
         유튜브링크테이블뷰.delegate = self
@@ -88,18 +90,3 @@ extension YouTubeViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
-
-// MARK: - 스크롤
-
-//
-// extension YouTubeViewController: UIScrollViewDelegate {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offsetY = scrollView.contentOffset.y
-//
-//        if offsetY > 0 {
-//            navigationController?.setNavigationBarHidden(true, animated: true)
-//        } else {
-//            navigationController?.setNavigationBarHidden(true, animated: true)
-//        }
-//    }
-// }
