@@ -7,10 +7,10 @@ import UIKit
 class CalculatorViewController: UIViewController {
     // MARK: - 유 아 이
 
-    private let 페이지제목 = {
+    private let 페이지이름 = {
         let label = UILabel()
 
-        label.text = "사료 칼로리 계산기"
+        label.text = "표준 사료 급여량 계산기"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor(named: "일반택스트컬러")
 
@@ -39,10 +39,27 @@ class CalculatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "급여량 계산기"
+        view.backgroundColor = UIColor(named: "뷰컬러")
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationItem.hidesBackButton = true
+        유아이레이아웃 ()
         //계산기화면레이아웃()
     }
-
+    func 유아이레이아웃 () {
+        for 유아이 in [페이지이름] {
+            view.addSubview(유아이)
+        }
+        페이지이름.snp.makeConstraints { make in
+            make.width.equalTo(190)
+            make.height.equalTo(24)
+            make.leading.equalToSuperview().offset(20)
+            make.top.equalToSuperview().offset(87)
+        }
+    }
+    
+    
     func 계산기화면레이아웃() {
         for 계산기유아이 in [사료그람입력] {
             view.addSubview(계산기유아이)
