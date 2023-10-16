@@ -10,9 +10,11 @@ class FeedView: UIView {
     // Label & Button
     let topViewHeight: CGFloat = 30
     let userNicknameLabelSize: CGFloat = 15
-    let likeButtonSize: CGFloat = 20
+    let ButtonSize: CGFloat = 20
     let likeButtonImage: String = "heart"
     let likeButtonColor: UIColor = .black
+    let commentButtonImage: String = "message"
+    let commentButtonColor: UIColor = .black
     // Image CollectionView & Page Control
     let imageCollectionViewHeight: CGFloat = 200
     let imageNames: [String] = ["spider1", "spider2", "spider3"]
@@ -28,18 +30,6 @@ class FeedView: UIView {
         label.textAlignment = .left
         
         return label
-    }()
-    
-    lazy var likeButton: UIButton = {
-        let button = UIButton()
-        
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: likeButtonSize, weight: .light)
-        let image = UIImage(systemName: likeButtonImage, withConfiguration: imageConfig)
-        
-        button.setImage(image, for: .normal)
-        button.tintColor = likeButtonColor
-        
-        return button
     }()
     
     lazy var imageCollectionView: UICollectionView = {
@@ -67,6 +57,30 @@ class FeedView: UIView {
         pageControl.pageIndicatorTintColor = .green
         
         return pageControl
+    }()
+    
+    lazy var likeButton: UIButton = {
+        let button = UIButton()
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: ButtonSize, weight: .light)
+        let image = UIImage(systemName: likeButtonImage, withConfiguration: imageConfig)
+        
+        button.setImage(image, for: .normal)
+        button.tintColor = likeButtonColor
+        
+        return button
+    }()
+    
+    lazy var commentButton: UIButton = {
+        let button = UIButton()
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: ButtonSize, weight: .light)
+        let image = UIImage(systemName: commentButtonImage, withConfiguration: imageConfig)
+        
+        button.setImage(image, for: .normal)
+        button.tintColor = commentButtonColor
+        
+        return button
     }()
     
     lazy var postTextView: UITextView = {
@@ -98,7 +112,7 @@ class FeedView: UIView {
     }
     
     private func setUI(){
-        [userNicknameLabel, likeButton, imageCollectionView, pageControl, postTextView].forEach { view in
+        [userNicknameLabel, imageCollectionView, pageControl, likeButton, commentButton, postTextView].forEach { view in
             addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -106,9 +120,10 @@ class FeedView: UIView {
     
     private func setConstraint() {
         setNicknameLabelConstraint()
-        setLikeButtonConstraint()
         setImageCollectionViewConstraint()
         setPageControlConstraint()
+        setLikeButtonConstraint()
+        setCommentButtonConstraint()
         setPostTextViewConstraint()
     }
     
@@ -118,14 +133,6 @@ class FeedView: UIView {
             userNicknameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             userNicknameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             userNicknameLabel.heightAnchor.constraint(equalToConstant: topViewHeight)
-        ])
-    }
-    
-    private func setLikeButtonConstraint() {
-        NSLayoutConstraint.activate([
-            likeButton.topAnchor.constraint(equalTo: topAnchor),
-            likeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            likeButton.heightAnchor.constraint(equalToConstant: topViewHeight)
         ])
     }
     
@@ -148,9 +155,25 @@ class FeedView: UIView {
         ])
     }
     
+    private func setLikeButtonConstraint() {
+        NSLayoutConstraint.activate([
+            likeButton.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor),
+            likeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            likeButton.heightAnchor.constraint(equalToConstant: topViewHeight)
+        ])
+    }
+    
+    private func setCommentButtonConstraint() {
+        NSLayoutConstraint.activate([
+            commentButton.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor),
+            commentButton.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 10),
+            commentButton.heightAnchor.constraint(equalToConstant: topViewHeight)
+        ])
+    }
+    
     private func setPostTextViewConstraint() {
         NSLayoutConstraint.activate([
-            postTextView.topAnchor.constraint(equalTo: pageControl.bottomAnchor),
+            postTextView.topAnchor.constraint(equalTo: likeButton.bottomAnchor),
             postTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
             postTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
             postTextView.heightAnchor.constraint(equalToConstant: postTextViewHeight)
