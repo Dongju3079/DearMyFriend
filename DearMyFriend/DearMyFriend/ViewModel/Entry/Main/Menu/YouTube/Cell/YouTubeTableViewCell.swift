@@ -1,12 +1,10 @@
-//박철우 - 유튜브 셀 페이지
+// 박철우 - 유튜브 셀 페이지
 
 import Foundation
 import Lottie
 import SnapKit
 import UIKit
-
 class YouTubeTableViewCell: UITableViewCell {
-
     var youtubeImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -16,6 +14,18 @@ class YouTubeTableViewCell: UITableViewCell {
         imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         imageView.layer.masksToBounds = true
         return imageView
+    }()
+    
+    var youtubeAnime: LottieAnimationView = {
+        let animationView = LottieAnimationView(name: "유튜브애니메이션")
+        animationView.contentMode = .scaleAspectFit
+
+        animationView.loopMode = .loop
+        
+        animationView.animationSpeed = 1
+
+        animationView.play()
+        return animationView
     }()
     
     var youtubeName: UILabel = {
@@ -43,6 +53,7 @@ class YouTubeTableViewCell: UITableViewCell {
         addSubview(youtubeImage)
         addSubview(youtubeName)
         addSubview(youtubeExplanation)
+        addSubview(youtubeAnime)
         
         youtubeImage.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
@@ -61,6 +72,14 @@ class YouTubeTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-8)
             make.leading.equalTo(youtubeImage.snp.trailing).offset(14)
             make.trailing.equalToSuperview().offset(-8)
+        }
+        
+        youtubeAnime.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.width.equalTo(80)
+            make.top.equalTo(youtubeName.snp.top).offset(-10)
+            make.bottom.equalTo(youtubeName.snp.bottom)
+            make.trailing.equalToSuperview().offset(10)
         }
         
         selectionStyle = .none

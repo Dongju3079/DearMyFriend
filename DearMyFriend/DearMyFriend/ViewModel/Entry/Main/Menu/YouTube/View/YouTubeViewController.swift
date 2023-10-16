@@ -57,7 +57,7 @@ class YouTubeViewController: UIViewController {
 
 extension YouTubeViewController {
     
-    func layoutForUI() {
+   private func layoutForUI() {
         for ui in [pageName] {
             view.addSubview(ui)
         }
@@ -69,7 +69,7 @@ extension YouTubeViewController {
         }
     }
 
-    func layoutForTableView() {
+   private func layoutForTableView() {
         view.addSubview(youtubeTableView)
         youtubeTableView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(180)
@@ -81,7 +81,7 @@ extension YouTubeViewController {
         }
     }
 
-    func layoutForSide() {
+    private func layoutForSide() {
         for side in [leftSide, rightSide] {
             view.addSubview(side)
         }

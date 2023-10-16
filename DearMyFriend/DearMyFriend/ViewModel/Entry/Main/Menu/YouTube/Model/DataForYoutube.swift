@@ -17,7 +17,7 @@ struct DataForYoutube {
         (thumbnail: "유튜브수리노을", title: "수리노을SuriNoel", description: "수리노을 고양이 가족의 이야기 Story of SuriNoel cat family", link: "https://m.youtube.com/@SuriNoel"),
         (thumbnail: "유튜브윤샘의마이펫상담소", title: "윤샘의 마이펫상담소", description: "강아지와 고양이의 모든것.\n단순 지식이나 정보가 아닌 여러분들이 강아지 고양이와 행복하게 지내는 방법에 대한 이야기 입니다.", link: "https://m.youtube.com/@yoonsem"),
         (thumbnail: "유튜브냥신TV", title: "냥신TV", description: "고양이 행동 수정 전문 나응식 수의사의 개인 미디어 채널\n전국의 집사님들 냥신에게 고양이 고민 상담하러 오세요!! ", link: "https://m.youtube.com/@nyangshin"),
-        (thumbnail: "유트브무지막지한막무家네", title: "무지막지한 막무家네", description: "무지와 막지의 일상을 담은 막무家네 채널입니다 :-)", link: "https://m.youtube.com/@mujimakji"),
-        (thumbnail: "유트브무지막지한막무家네", title: "무지막지한 막무家네", description: "무지와 막지의 일상을 담은 막무家네 채널입니다 :-)", link: "https://m.youtube.com/@mujimakji"),
+        (thumbnail: "유튜브오드캣스토리", title: "오드캣스토리", description: "고양이 행동 컨설턴트\n상담 신청 카카오톡 아이디 oddcatstory", link: "https://m.youtube.com/@mujimakji"),
+        (thumbnail: "유튜브무지막지한막무家네", title: "무지막지한 막무家네", description: "무지와 막지의 일상을 담은 막무家네 채널입니다 :-)", link: "https://m.youtube.com/@mujimakji"),
     ]
 }
