@@ -15,7 +15,6 @@ class FeedView: UIView {
     let likeButtonColor: UIColor = .black
     // Image CollectionView & Page Control
     let imageCollectionViewHeight: CGFloat = 200
-    var imageViews: [UIImageView] = []
     let imageNames: [String] = ["spider1", "spider2", "spider3"]
     let pageControlHeight: CGFloat = 30
     // TextView

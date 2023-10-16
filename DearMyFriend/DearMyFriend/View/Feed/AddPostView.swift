@@ -6,6 +6,8 @@ import Foundation
 import UIKit
 
 protocol AddPostViewDelegate: AnyObject {
+    func cancelButtonTapped()
+    func uploadButtonTapped()
     func imageViewTapped()
 }
 
@@ -19,7 +21,10 @@ class AddPostView: UIView {
     let buttonColor: UIColor = .black
     var delegate: AddPostViewDelegate?
     // Image
-    let imageViewHeight: CGFloat = 300
+    let imageViewHeight: CGFloat = 500
+    let imageName: String = "spider1"
+    // TextView
+    let postTextViewHeight: CGFloat = 100
     
     lazy var userNicknameLabel: UILabel = {
         let label = UILabel()
@@ -37,6 +42,7 @@ class AddPostView: UIView {
         button.setTitle("업로드", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: buttonSize)
         button.setTitleColor(buttonColor, for: .normal)
+        button.addTarget(self, action: #selector(uploadButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -47,14 +53,15 @@ class AddPostView: UIView {
         button.setTitle("취소", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: buttonSize)
         button.setTitleColor(buttonColor, for: .normal)
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         
         return button
     }()
     
     lazy var postImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "spider1")
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: imageName)
 
         return imageView
     }()
@@ -64,6 +71,17 @@ class AddPostView: UIView {
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(profileImageViewTapped), for: .touchUpInside)
         return button
+    }()
+    
+    lazy var postTextView: UITextView = {
+       let textView = UITextView()
+        textView.isEditable = false
+        textView.isSelectable = true
+        
+        textView.backgroundColor = .blue
+        textView.text = "Test 입니다."
+        
+        return textView
     }()
     
     // MARK: Initalizers
@@ -84,7 +102,7 @@ class AddPostView: UIView {
     }
     
     private func setUI(){
-        [userNicknameLabel, uploadPostButton, cancelPostButton, postImageView, imagePickerButton].forEach { view in
+        [userNicknameLabel, uploadPostButton, cancelPostButton, postImageView, imagePickerButton, postTextView].forEach { view in
             addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -95,6 +113,7 @@ class AddPostView: UIView {
         setCancelPostButtonConstraint()
         setAddPostButtonConstraint()
         setPostImageViewConstraint()
+        setPostTextViewConstraint()
     }
     
     private func setNicknameLabelConstraint() {
@@ -124,7 +143,7 @@ class AddPostView: UIView {
     
     private func setPostImageViewConstraint() {
         NSLayoutConstraint.activate([
-            postImageView.topAnchor.constraint(equalTo: userNicknameLabel.bottomAnchor, constant: 10),
+            postImageView.topAnchor.constraint(equalTo: userNicknameLabel.bottomAnchor),
             postImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             postImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             postImageView.heightAnchor.constraint(equalToConstant: imageViewHeight),
@@ -136,8 +155,26 @@ class AddPostView: UIView {
         ])
     }
     
+    private func setPostTextViewConstraint() {
+        NSLayoutConstraint.activate([
+            postTextView.topAnchor.constraint(equalTo: postImageView.bottomAnchor),
+            postTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            postTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            postTextView.heightAnchor.constraint(equalToConstant: postTextViewHeight)
+        ])
+    }
+    
     // MARK: - Action
-    @objc private func profileImageViewTapped() {
+    @objc private func cancelButtonTapped(){
+        print("cancel 클릭")
+        delegate?.cancelButtonTapped()
+    }
+    @objc private func uploadButtonTapped(){
+        print("upload 클릭")
+        delegate?.uploadButtonTapped()
+    }
+    
+    @objc private func profileImageViewTapped(){
         print("image 클릭")
         delegate?.imageViewTapped()
     }

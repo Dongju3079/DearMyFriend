@@ -38,6 +38,14 @@ class AddPostViewController: UIViewController {
 }
 
 extension AddPostViewController: AddPostViewDelegate {
+    func cancelButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    func uploadButtonTapped() {
+        dismiss(animated: true)
+    }
+    
     func imageViewTapped(){
         let picker = UIImagePickerController()
         picker.delegate = self

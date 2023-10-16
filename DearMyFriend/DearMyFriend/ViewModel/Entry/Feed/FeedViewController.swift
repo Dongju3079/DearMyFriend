@@ -79,6 +79,7 @@ extension FeedViewController: FeadTitleViewDelegate {
     func addButtonTapped() {
         print("test")
         let addPostViewController = AddPostViewController()
+        addPostViewController.modalPresentationStyle = .fullScreen
         present(addPostViewController, animated: true, completion: nil)
     }
 }
