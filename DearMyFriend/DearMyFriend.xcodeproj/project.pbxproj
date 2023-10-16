@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F548F4C2ADCDADC0010746B /* YouTubeChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F548F4B2ADCDADC0010746B /* YouTubeChannel.swift */; };
 		1F548F4E2ADCDE5A0010746B /* YouTubeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F548F4D2ADCDE5A0010746B /* YouTubeViewModel.swift */; };
 		1FCE8EB12AD78E9400950E92 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1FCE8EB02AD78E9400950E92 /* SnapKit */; };
 		1FCE8EB42AD78EA100950E92 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1FCE8EB32AD78EA100950E92 /* Lottie */; };
@@ -36,7 +35,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F548F4B2ADCDADC0010746B /* YouTubeChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeChannel.swift; sourceTree = "<group>"; };
 		1F548F4D2ADCDE5A0010746B /* YouTubeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeViewModel.swift; sourceTree = "<group>"; };
 		1FCE8EB62AD7934400950E92 /* YouTubeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeTableViewCell.swift; sourceTree = "<group>"; };
 		1FCE8EB82AD7DE8700950E92 /* DataForYoutube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataForYoutube.swift; sourceTree = "<group>"; };
@@ -81,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				1FCE8EB82AD7DE8700950E92 /* DataForYoutube.swift */,
-				1F548F4B2ADCDADC0010746B /* YouTubeChannel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -323,7 +320,6 @@
 				52D998562AD6CDF900679B15 /* TabBarController.swift in Sources */,
 				1FCE8EB92AD7DE8700950E92 /* DataForYoutube.swift in Sources */,
 				52D998502AD6BAC000679B15 /* MainMenuCellView.swift in Sources */,
-				1F548F4C2ADCDADC0010746B /* YouTubeChannel.swift in Sources */,
 				52D9982F2AD6AAF800679B15 /* UserInfoViewController.swift in Sources */,
 				52D998392AD6AB6600679B15 /* PopularityViewController.swift in Sources */,
 				52D998172AD6A89600679B15 /* AppDelegate.swift in Sources */,

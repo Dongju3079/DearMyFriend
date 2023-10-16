@@ -2,12 +2,12 @@
 import Foundation
 
 class YouTubeViewModel {
-    var youtubeChannels: [YouTubeChannel] = []
+    var youtubeChannels: [DataForYoutube] = []
 
     init() {
         let dataForYoutube = DataForYoutube(thumbnail: "", title: "", description: "", link: "")
         youtubeChannels = dataForYoutube.youtubeDataForCat.map {
-            YouTubeChannel(thumbnail: $0.thumbnail, title: $0.title, description: $0.description, link: $0.link)
+            DataForYoutube(thumbnail: $0.thumbnail, title: $0.title, description: $0.description, link: $0.link)
         }
     }
 
@@ -15,7 +15,7 @@ class YouTubeViewModel {
         return youtubeChannels.count
     }
 
-    func channel(at index: Int) -> YouTubeChannel {
+    func channel(at index: Int) -> DataForYoutube {
         return youtubeChannels[index]
     }
 }
