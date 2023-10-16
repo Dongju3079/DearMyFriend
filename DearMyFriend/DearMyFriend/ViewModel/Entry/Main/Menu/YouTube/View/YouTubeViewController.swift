@@ -1,24 +1,22 @@
 // 박철우-유튜브연결페이지
-
+//
 import Lottie
 import SnapKit
 import UIKit
 
-// MARK: - Youtube추천 페이지
-
 class YouTubeViewController: UIViewController {
-    let youtubeData = DataForYoutube(thumbnail: "", title: "", description: "", link: "")
-
-    private let 페이지이름 = {
+    private var youTubeviewModel = YouTubeViewModel()
+    
+    private let pageName = {
         let label = UILabel()
         label.text = "추천 유튜버"
-        label.textColor = UIColor(named: "텍스트컬러")
+        label.textColor = UIColor(named: "주요텍스트컬러")
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textAlignment = .center
         return label
     }()
 
-    private let 유튜브링크테이블뷰 = {
+    private let youtubeTableView = {
         let tableView = UITableView()
         tableView.backgroundColor = UIColor(named: "뷰컬러")
         tableView.isUserInteractionEnabled = true
@@ -26,21 +24,19 @@ class YouTubeViewController: UIViewController {
         return tableView
     }()
 
-    private let 왼쪽사이드 = {
+    private let leftSide = {
         let newView = UIView()
         newView.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
         newView.layer.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.4).cgColor
         return newView
     }()
 
-    private let 오른쪽사이드 = {
+    private let rightSide = {
         let newView = UIView()
         newView.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
         newView.layer.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.4).cgColor
         return newView
     }()
-
-    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,30 +46,22 @@ class YouTubeViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.hidesBackButton = true
-        유아이레이아웃()
-        사이드레이아웃()
-        유튜브테이블뷰레이아웃()
-        유튜브링크테이블뷰.dataSource = self
-        유튜브링크테이블뷰.delegate = self
-        유튜브링크테이블뷰.register(YouTubeTableViewCell.self, forCellReuseIdentifier: "CellForYoutube")
+        layoutForUI()
+        layoutForSide()
+        layoutForTableView()
+        youtubeTableView.dataSource = self
+        youtubeTableView.delegate = self
+        youtubeTableView.register(YouTubeTableViewCell.self, forCellReuseIdentifier: "CellForYoutube")
     }
 }
 
-// MARK: - ** EXTENSION **
-
-//
-//
-//
-
-// MARK: - 유아이 레이아웃
-
 extension YouTubeViewController {
-    //
-    func 유아이레이아웃() {
-        for 유아이 in [페이지이름] {
-            view.addSubview(유아이)
+    
+    func layoutForUI() {
+        for ui in [pageName] {
+            view.addSubview(ui)
         }
-        페이지이름.snp.makeConstraints { make in
+        pageName.snp.makeConstraints { make in
             make.width.equalTo(139)
             make.height.equalTo(24)
             make.leading.equalToSuperview().offset(20)
@@ -81,10 +69,10 @@ extension YouTubeViewController {
         }
     }
 
-    func 유튜브테이블뷰레이아웃() {
-        view.addSubview(유튜브링크테이블뷰)
-        유튜브링크테이블뷰.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(155)
+    func layoutForTableView() {
+        view.addSubview(youtubeTableView)
+        youtubeTableView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(180)
             make.bottom.equalToSuperview().offset(-49)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -93,17 +81,17 @@ extension YouTubeViewController {
         }
     }
 
-    func 사이드레이아웃() {
-        for 사이드 in [왼쪽사이드, 오른쪽사이드] {
-            view.addSubview(사이드)
+    func layoutForSide() {
+        for side in [leftSide, rightSide] {
+            view.addSubview(side)
         }
-        왼쪽사이드.snp.makeConstraints { make in
+        leftSide.snp.makeConstraints { make in
             make.width.equalTo(20)
             make.height.equalTo(908)
             make.leading.equalToSuperview()
             make.top.equalToSuperview()
         }
-        오른쪽사이드.snp.makeConstraints { make in
+        rightSide.snp.makeConstraints { make in
             make.width.equalTo(20)
             make.height.equalTo(908)
             make.trailing.equalToSuperview()
@@ -112,11 +100,9 @@ extension YouTubeViewController {
     }
 }
 
-// MARK: - 테이블뷰
-
 extension YouTubeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 100
     }
 
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -124,23 +110,24 @@ extension YouTubeViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        youtubeData.유튜브데이터.count
+        return youTubeviewModel.numberOfChannels()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellForYoutube", for: indexPath) as! YouTubeTableViewCell
 
-        let (thumbnail, title, description, link) = youtubeData.유튜브데이터[indexPath.row]
-        cell.유튜브체널이미지.image = UIImage(named: thumbnail)
-        cell.유튜브체널라벨.text = title
-        cell.유튜브링크라벨.text = description
+        let channel = youTubeviewModel.channel(at: indexPath.row)
+        cell.youtubeImage.image = UIImage(named: channel.thumbnail)
+           cell.youtubeName.text = channel.title
+           cell.youtubeExplanation.text = channel.description
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(youtubeData.유튜브데이터[indexPath.row].title) 링크로 이동")
-        let selectedLink = youtubeData.유튜브데이터[indexPath.row].link
+        let selectedChannel = youTubeviewModel.channel(at: indexPath.row)
+        print("\(selectedChannel.title) 링크로 이동")
+        let selectedLink = selectedChannel.link
 
         if let url = URL(string: selectedLink) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)

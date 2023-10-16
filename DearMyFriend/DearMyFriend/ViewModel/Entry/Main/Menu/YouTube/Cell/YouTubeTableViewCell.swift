@@ -1,15 +1,13 @@
+//박철우 - 유튜브 셀 페이지
 
 import Foundation
 import Lottie
 import SnapKit
 import UIKit
 
-// MARK: - 셀커스텀
-
 class YouTubeTableViewCell: UITableViewCell {
-    // MARK: - 셀에보여줄 항목
 
-    var 유튜브체널이미지: UIImageView = {
+    var youtubeImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = false
@@ -20,17 +18,17 @@ class YouTubeTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    var 유튜브체널라벨: UILabel = {
+    var youtubeName: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = UIColor(named: "일반택스트컬러")
+        label.textColor = UIColor(named: "주요택스트컬러")
         return label
     }()
     
-    var 유튜브링크라벨: UILabel = {
+    var youtubeExplanation: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = UIColor(named: "일반택스트컬러")
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor(named: "보조택스트컬러")
         label.numberOfLines = 0
         return label
     }()
@@ -42,26 +40,26 @@ class YouTubeTableViewCell: UITableViewCell {
         layer.borderWidth = 1
         layer.cornerRadius = 10
    
-        addSubview(유튜브체널이미지)
-        addSubview(유튜브체널라벨)
-        addSubview(유튜브링크라벨)
+        addSubview(youtubeImage)
+        addSubview(youtubeName)
+        addSubview(youtubeExplanation)
         
-        유튜브체널이미지.snp.makeConstraints { make in
+        youtubeImage.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
-            make.width.equalTo(120)
+            make.width.equalTo(100)
             make.height.equalTo(100)
         }
         
-        유튜브체널라벨.snp.makeConstraints { make in
+        youtubeName.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
-            make.leading.equalTo(유튜브체널이미지.snp.trailing).offset(14)
+            make.leading.equalTo(youtubeImage.snp.trailing).offset(14)
             make.trailing.equalToSuperview().offset(-8)
         }
         
-        유튜브링크라벨.snp.makeConstraints { make in
-            make.top.equalTo(유튜브체널라벨.snp.bottom).offset(15)
+        youtubeExplanation.snp.makeConstraints { make in
+            make.top.equalTo(youtubeName.snp.bottom).offset(15)
             make.bottom.equalToSuperview().offset(-8)
-            make.leading.equalTo(유튜브체널이미지.snp.trailing).offset(14)
+            make.leading.equalTo(youtubeImage.snp.trailing).offset(14)
             make.trailing.equalToSuperview().offset(-8)
         }
         
