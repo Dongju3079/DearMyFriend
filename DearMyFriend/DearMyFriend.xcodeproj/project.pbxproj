@@ -293,6 +293,8 @@
 			packageReferences = (
 				1FCE8EAF2AD78E9300950E92 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				1FCE8EB22AD78EA100950E92 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				1F548F572ADF08620010746B /* XCRemoteSwiftPackageReference "Hero" */,
+				1F548F5A2ADF0DB90010746B /* XCRemoteSwiftPackageReference "BouncyLayout" */,
 			);
 			productRefGroup = 52D998142AD6A89600679B15 /* Products */;
 			projectDirPath = "";
@@ -563,6 +565,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1F548F572ADF08620010746B /* XCRemoteSwiftPackageReference "Hero" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/HeroTransitions/Hero";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		1F548F5A2ADF0DB90010746B /* XCRemoteSwiftPackageReference "BouncyLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roberthein/BouncyLayout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		1FCE8EAF2AD78E9300950E92 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";

@@ -10,14 +10,14 @@ class CalculatorViewController: UIViewController {
     private let leftSide = {
         let side = UIView()
         side.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
-        side.layer.backgroundColor = UIColor(named: "보더컬러")?.cgColor
+        side.layer.backgroundColor = UIColor(named: "태두리컬러")?.cgColor
         return side
     }()
 
     private let rightSide = {
         let side = UIView()
         side.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
-        side.layer.backgroundColor = UIColor(named: "보더컬러")?.cgColor
+        side.layer.backgroundColor = UIColor(named: "태두리컬러")?.cgColor
         return side
     }()
 

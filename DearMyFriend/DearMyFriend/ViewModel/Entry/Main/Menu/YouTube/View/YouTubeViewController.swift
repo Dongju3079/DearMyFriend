@@ -29,25 +29,41 @@ class YouTubeViewController: UIViewController {
     private let leftSide = {
         let side = UIView()
         side.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
-        side.layer.backgroundColor = UIColor(named: "보더컬러")?.cgColor
+        side.layer.backgroundColor = UIColor(named: "태두리컬러")?.cgColor
         return side
     }()
 
     private let rightSide = {
         let side = UIView()
         side.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
-        side.layer.backgroundColor = UIColor(named: "보더컬러")?.cgColor
+        side.layer.backgroundColor = UIColor(named: "태두리컬러")?.cgColor
         return side
+    }()
+    private var cellSelectAnime = {
+        let animeView = LottieAnimationView(name: "로딩")
+
+        animeView.contentMode = .scaleAspectFit
+
+        animeView.loopMode = .loop
+
+        animeView.animationSpeed = 1
+
+        animeView.play()
+
+        return animeView
+
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = UIColor(named: "뷰컬러")
         // navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.hidesBackButton = true
+
         layoutForUI()
         layoutForSide()
         layoutForTableView()
@@ -105,7 +121,7 @@ extension YouTubeViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
-
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "냥냥이 채널"
@@ -114,45 +130,67 @@ extension YouTubeViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return nil
     }
-
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
             headerView.contentView.backgroundColor = UIColor(named: "뷰컬러")
             headerView.textLabel?.textColor = UIColor(named: "주요택스트컬러")
         }
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-
+    
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return youTubeviewModel.numberOfChannels(in: section)
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellForYoutube", for: indexPath) as! YouTubeTableViewCell
-
+        
         let youtubeChannel = youTubeviewModel.channel(at: indexPath)
         cell.youtubeImage.image = UIImage(named: youtubeChannel.thumbnail)
         cell.youtubeName.text = youtubeChannel.title
         cell.youtubeExplanation.text = youtubeChannel.description
         return cell
     }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {}
-
+        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        view.addSubview(cellSelectAnime)
+        cellSelectAnime.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalTo(150)
+            make.height.equalTo(150)
+        }
+        pageName.isHidden = true
+        youtubeTableView.isHidden = true
+        leftSide.isHidden = true
+        rightSide.isHidden = true
+        
         let selectedChannel = youTubeviewModel.channel(at: indexPath)
         print("\(selectedChannel.title) 링크로 이동")
         let selectedLink = selectedChannel.link
-
+        
         if let url = URL(string: selectedLink) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2 ) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                self.cellSelectAnime.removeFromSuperview()
+                if self.pageName.isHidden == true, self.youtubeTableView.isHidden == true, self.leftSide.isHidden == true, self.rightSide.isHidden == true {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.3) {
+                        self.pageName.isHidden = false
+                        self.youtubeTableView.isHidden = false
+                        self.leftSide.isHidden = false
+                        self.rightSide.isHidden = false
+                    }
+                }
+            }
         }
     }
 }
