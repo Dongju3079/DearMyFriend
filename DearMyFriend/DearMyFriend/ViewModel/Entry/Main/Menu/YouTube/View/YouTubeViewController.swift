@@ -72,7 +72,7 @@ extension YouTubeViewController {
    private func layoutForTableView() {
         view.addSubview(youtubeTableView)
         youtubeTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(180)
+            make.top.equalToSuperview().offset(200)
             make.bottom.equalToSuperview().offset(-49)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -116,10 +116,10 @@ extension YouTubeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellForYoutube", for: indexPath) as! YouTubeTableViewCell
 
-        let channel = youTubeviewModel.channel(at: indexPath.row)
-        cell.youtubeImage.image = UIImage(named: channel.thumbnail)
-           cell.youtubeName.text = channel.title
-           cell.youtubeExplanation.text = channel.description
+        let youtubeChannel = youTubeviewModel.channel(at: indexPath.row)
+        cell.youtubeImage.image = UIImage(named: youtubeChannel.thumbnail)
+           cell.youtubeName.text = youtubeChannel.title
+           cell.youtubeExplanation.text = youtubeChannel.description
 
         return cell
     }

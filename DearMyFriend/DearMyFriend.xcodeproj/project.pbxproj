@@ -107,6 +107,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		1F548F542ADE31F80010746B /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				52D998342AD6AB1800679B15 /* CalculatorViewController.swift */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
 		1FCE8EB52AD7931A00950E92 /* YouTube */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,7 +226,7 @@
 				52D9983A2AD6AB9B00679B15 /* MapViewController.swift */,
 				52D9983C2AD6ABA700679B15 /* WishViewController.swift */,
 				52D9983E2AD6ABB500679B15 /* StoreViewController.swift */,
-				52D998342AD6AB1800679B15 /* CalculatorViewController.swift */,
+				1F548F542ADE31F80010746B /* Calculator */,
 			);
 			path = Menu;
 			sourceTree = "<group>";

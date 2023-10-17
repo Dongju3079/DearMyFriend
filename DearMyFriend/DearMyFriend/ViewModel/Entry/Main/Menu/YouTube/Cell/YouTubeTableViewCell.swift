@@ -37,7 +37,7 @@ class YouTubeTableViewCell: UITableViewCell {
     
     var youtubeExplanation: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.systemFont(ofSize: 10)
         label.textColor = UIColor(named: "보조택스트컬러")
         label.numberOfLines = 0
         return label
@@ -62,14 +62,14 @@ class YouTubeTableViewCell: UITableViewCell {
         }
         
         youtubeName.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
+            make.top.equalToSuperview().offset(4)
             make.leading.equalTo(youtubeImage.snp.trailing).offset(14)
             make.trailing.equalToSuperview().offset(-8)
         }
         
         youtubeExplanation.snp.makeConstraints { make in
-            make.top.equalTo(youtubeName.snp.bottom).offset(15)
-            make.bottom.equalToSuperview().offset(-8)
+            make.top.equalTo(youtubeName.snp.bottom).offset(5)
+            make.bottom.equalToSuperview()
             make.leading.equalTo(youtubeImage.snp.trailing).offset(14)
             make.trailing.equalToSuperview().offset(-8)
         }
@@ -77,8 +77,8 @@ class YouTubeTableViewCell: UITableViewCell {
         youtubeAnime.snp.makeConstraints { make in
             make.height.equalTo(50)
             make.width.equalTo(80)
-            make.top.equalTo(youtubeName.snp.top).offset(-10)
-            make.bottom.equalTo(youtubeName.snp.bottom)
+            make.top.equalTo(youtubeName.snp.top).offset(-5)
+            make.bottom.equalTo(youtubeName.snp.bottom).offset(5)
             make.trailing.equalToSuperview().offset(10)
         }
         
