@@ -8,17 +8,17 @@ class CalculatorViewController: UIViewController {
     
 
     private let leftSide = {
-        let newView = UIView()
-        newView.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
-        newView.layer.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.4).cgColor
-        return newView
+        let side = UIView()
+        side.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
+        side.layer.backgroundColor = UIColor(named: "보더컬러")?.cgColor
+        return side
     }()
 
     private let rightSide = {
-        let newView = UIView()
-        newView.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
-        newView.layer.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.4).cgColor
-        return newView
+        let side = UIView()
+        side.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
+        side.layer.backgroundColor = UIColor(named: "보더컬러")?.cgColor
+        return side
     }()
 
     private let pageName = {
@@ -45,7 +45,7 @@ class CalculatorViewController: UIViewController {
         button.setImage(UIImage(named: "강아지예스클릭"), for: .selected)
         button.contentMode = .scaleAspectFit
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemRed.cgColor
+        button.layer.borderColor = UIColor(named: "보더컬러")?.cgColor
         button.layer.cornerRadius = 10
         button.setImage(UIImage(named: "강아지노클릭"), for: .normal)
         button.contentMode = .scaleAspectFit
@@ -58,7 +58,7 @@ class CalculatorViewController: UIViewController {
         button.setImage(UIImage(named: "고양이예스클릭"), for: .selected)
         button.contentMode = .scaleAspectFit
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemRed.cgColor
+        button.layer.borderColor = UIColor(named: "보더컬러")?.cgColor
         button.layer.cornerRadius = 10
         button.setImage(UIImage(named: "고양이노클릭"), for: .normal)
         button.contentMode = .scaleAspectFit
@@ -85,7 +85,7 @@ class CalculatorViewController: UIViewController {
         textField.backgroundColor = UIColor(named: "")
         textField.font = UIFont.boldSystemFont(ofSize: 18)
         textField.textAlignment = .center
-        textField.layer.borderColor = UIColor.systemRed.cgColor
+        textField.layer.borderColor = UIColor(named: "보더컬러")?.cgColor
         textField.layer.borderWidth = 1.0
         textField.tintColor = .magenta
         textField.clearButtonMode = .whileEditing

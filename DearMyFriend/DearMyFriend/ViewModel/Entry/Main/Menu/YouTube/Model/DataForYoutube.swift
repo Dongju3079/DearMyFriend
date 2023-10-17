@@ -20,4 +20,11 @@ struct DataForYoutube {
         (thumbnail: "유튜브오드캣스토리", title: "오드캣스토리", description: "고양이 행동 컨설턴트\n상담 신청 카카오톡 아이디 oddcatstory", link: "https://m.youtube.com/@mujimakji"),
         (thumbnail: "유튜브무지막지한막무家네", title: "무지막지한 막무家네", description: "무지와 막지의 일상을 담은 막무家네 채널입니다 :-)", link: "https://m.youtube.com/@mujimakji"),
     ]
+    let youtubeDataForDog = [
+        (thumbnail: "유튜브루퐁이네", title: "[THE SOY]루퐁이네", description: "안녕하세요\n쌈바요정 루디씨와 옭옭쟁이 퐁키의 유튜브채널입니다.", link: "https://m.youtube.com/@rupong"),
+        (thumbnail: "유튜브슈앤트리", title: "슈앤트리", description: "슈와 나무의 평범하지만 특별한 하루하루를\n기록 하고 있는 슈앤트리TV 입니다.", link: "https://m.youtube.com/@shuandtree_"),
+        (thumbnail: "유튜브강형욱", title: "강형욱의 보듬TV", description: "저희 채널과 함께 강아지 키워봅시다🐶", link: "https://m.youtube.com/@Bodeumofficial"),
+        (thumbnail: "유튜브솜이네", title: "솜이네 곰이탱이여우", description: "매주 일요일 밤 9시 라이브 방송 놀러오시개!", link: "https://m.youtube.com/@shibas"),
+        
+    ]
 }

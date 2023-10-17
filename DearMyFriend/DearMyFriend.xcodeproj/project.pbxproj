@@ -222,11 +222,11 @@
 		52D998482AD6B01E00679B15 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				1F548F542ADE31F80010746B /* Calculator */,
 				1FCE8EB52AD7931A00950E92 /* YouTube */,
 				52D9983A2AD6AB9B00679B15 /* MapViewController.swift */,
 				52D9983C2AD6ABA700679B15 /* WishViewController.swift */,
 				52D9983E2AD6ABB500679B15 /* StoreViewController.swift */,
-				1F548F542ADE31F80010746B /* Calculator */,
 			);
 			path = Menu;
 			sourceTree = "<group>";

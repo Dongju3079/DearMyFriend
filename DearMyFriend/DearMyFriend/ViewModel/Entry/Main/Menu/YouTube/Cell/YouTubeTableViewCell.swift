@@ -11,6 +11,7 @@ class YouTubeTableViewCell: UITableViewCell {
         imageView.clipsToBounds = false
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor(named: "보더컬러")?.cgColor
         imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         imageView.layer.masksToBounds = true
         return imageView
@@ -42,18 +43,21 @@ class YouTubeTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         return label
     }()
+
     
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         self.backgroundColor = UIColor(named: "셀컬러")
+        layer.borderColor = UIColor(named: "보더컬러")?.cgColor
         layer.borderWidth = 1
         layer.cornerRadius = 10
-   
+        
         addSubview(youtubeImage)
         addSubview(youtubeName)
         addSubview(youtubeExplanation)
         addSubview(youtubeAnime)
+        
         
         youtubeImage.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
