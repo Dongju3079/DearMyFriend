@@ -5,6 +5,7 @@ import Lottie
 import SnapKit
 import UIKit
 class YouTubeTableViewCell: UITableViewCell {
+    
     var youtubeImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -44,8 +45,6 @@ class YouTubeTableViewCell: UITableViewCell {
         return label
     }()
 
-    
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = UIColor(named: "셀컬러")
@@ -57,7 +56,6 @@ class YouTubeTableViewCell: UITableViewCell {
         addSubview(youtubeName)
         addSubview(youtubeExplanation)
         addSubview(youtubeAnime)
-        
         
         youtubeImage.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()

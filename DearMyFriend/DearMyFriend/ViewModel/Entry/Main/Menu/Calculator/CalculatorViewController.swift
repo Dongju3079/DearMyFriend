@@ -5,33 +5,31 @@ import SnapKit
 import UIKit
 
 class CalculatorViewController: UIViewController {
-    
-
     private let leftSide = {
         let side = UIView()
         side.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
         side.layer.backgroundColor = UIColor(named: "태두리컬러")?.cgColor
         return side
     }()
-
+    
     private let rightSide = {
         let side = UIView()
         side.frame = CGRect(x: 0, y: 0, width: 20, height: 908)
         side.layer.backgroundColor = UIColor(named: "태두리컬러")?.cgColor
         return side
     }()
-
+    
     private let pageName = {
         let label = UILabel()
-
+        
         label.text = "표준 사료 급여량 계산기"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor(named: "일반택스트컬러")
         label.textAlignment = .right
-
+        
         return label
     }()
-
+    
     private let selectLabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "주요택스트컬러")
@@ -39,7 +37,7 @@ class CalculatorViewController: UIViewController {
         label.text = "반려동물 선택"
         return label
     }()
-
+    
     private let 강아지버튼 = {
         let button = UIButton()
         button.setImage(UIImage(named: "강아지예스클릭"), for: .selected)
@@ -52,7 +50,7 @@ class CalculatorViewController: UIViewController {
         button.isSelected = true
         return button
     }()
-
+    
     private let 고양이버튼 = {
         let button = UIButton()
         button.setImage(UIImage(named: "고양이예스클릭"), for: .selected)
@@ -65,7 +63,16 @@ class CalculatorViewController: UIViewController {
         button.isSelected = true
         return button
     }()
-   
+
+    private var checking = {
+        let animeView = LottieAnimationView(name: "checking")
+        animeView.contentMode = .scaleAspectFit
+        animeView.loopMode = .playOnce
+        animeView.animationSpeed = 5
+        return animeView
+
+    }()
+    
     private let weightLabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "주요택스트컬러")
@@ -73,7 +80,7 @@ class CalculatorViewController: UIViewController {
         label.text = "반려동물 몸무게"
         return label
     }()
-
+    
     private let 몸무게입력 = {
         let textField = UITextField()
         textField.placeholder = "몸무게(kg)를 입력해주세요."
@@ -82,7 +89,7 @@ class CalculatorViewController: UIViewController {
         textField.layer.masksToBounds = true
         textField.layer.cornerRadius = 10
         textField.textColor = UIColor(named: "텍스트컬러")
-        textField.backgroundColor = UIColor(named: "")
+        
         textField.font = UIFont.boldSystemFont(ofSize: 18)
         textField.textAlignment = .center
         textField.layer.borderColor = UIColor(named: "보더컬러")?.cgColor
@@ -90,11 +97,10 @@ class CalculatorViewController: UIViewController {
         textField.tintColor = .magenta
         textField.clearButtonMode = .whileEditing
         textField.clearsOnBeginEditing = true
+        
         return textField
     }()
-
-   
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -103,12 +109,13 @@ class CalculatorViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.hidesBackButton = true
-        유아이레이아웃()
-       
-        계산기화면레이아웃()
         
+        유아이레이아웃()
+        계산기화면레이아웃()
+        몸무게입력.delegate = self
+        animalClick()
     }
-
+    
     func 유아이레이아웃() {
         for 유아이 in [leftSide, rightSide, pageName, selectLabel, weightLabel, 강아지버튼, 고양이버튼, 몸무게입력] {
             view.addSubview(유아이)
@@ -157,10 +164,8 @@ class CalculatorViewController: UIViewController {
             make.top.equalTo(강아지버튼)
             make.trailing.equalToSuperview().offset(-46)
         }
-        
     }
     
-
     func 계산기화면레이아웃() {
         for 계산기유아이 in [몸무게입력] {
             view.addSubview(계산기유아이)
@@ -171,5 +176,70 @@ class CalculatorViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(weightLabel.snp.bottom).offset(17)
         }
+    }
+    
+    @objc func 강아지버튼클릭() {
+        print("강아지 버튼이 클릭되었습니다.")
+        if !고양이버튼.subviews.contains(checking) {
+            강아지버튼.addSubview(checking)
+            checking.snp.remakeConstraints { make in
+                make.top.trailing.equalTo(강아지버튼)
+                make.height.equalTo(20)
+                make.width.equalTo(20)
+            }
+            checking.play()
+            weightLabel.text = "댕댕이 몸무게"
+
+        } else {
+            checking.removeFromSuperview()
+            강아지버튼.addSubview(checking)
+            checking.snp.remakeConstraints { make in
+                make.top.trailing.equalTo(강아지버튼)
+                make.height.equalTo(20)
+                make.width.equalTo(20)
+            }
+            checking.play()
+            weightLabel.text = "댕댕이 몸무게"
+        }
+    }
+
+    @objc func 고양이버튼클릭() {
+        print("고양이 버튼이 클릭되었습니다.")
+        if !강아지버튼.subviews.contains(checking) {
+            고양이버튼.addSubview(checking)
+            checking.snp.remakeConstraints { make in
+                make.top.trailing.equalTo(고양이버튼)
+                make.height.equalTo(20)
+                make.width.equalTo(20)
+            }
+            checking.play()
+            weightLabel.text = "냥냥이 몸무게"
+
+        } else if 강아지버튼.subviews.contains(checking) {
+            checking.removeFromSuperview()
+            고양이버튼.addSubview(checking)
+            checking.snp.remakeConstraints { make in
+                make.top.trailing.equalTo(고양이버튼)
+                make.height.equalTo(20)
+                make.width.equalTo(20)
+            }
+            checking.play()
+            weightLabel.text = "냥냥이 몸무게"
+        }
+    }
+
+    func animalClick() {
+        강아지버튼.addTarget(self, action: #selector(강아지버튼클릭), for: .touchUpInside)
+        고양이버튼.addTarget(self, action: #selector(고양이버튼클릭), for: .touchUpInside)
+    }
+}
+
+extension CalculatorViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        let maximumtextLengthInTextField = (textField.text?.count ?? 0) + string.count - range.length
+
+        return allowedCharacters.isSuperset(of: characterSet) && maximumtextLengthInTextField <= 3
     }
 }

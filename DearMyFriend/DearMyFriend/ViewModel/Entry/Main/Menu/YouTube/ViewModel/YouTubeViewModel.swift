@@ -28,3 +28,4 @@ class YouTubeViewModel {
         return channels[indexPath.section][indexPath.row]
     }
 }
+
