@@ -2,25 +2,45 @@
 // Feed View
 // Feed 화면에서 게시글을 보여주는 View
 // 해당 View는 FeedViewController에서 TableView에 들어가는 Cell에 들어갈 View 이다.
+
 import Foundation
 import UIKit
 
 class FeedView: UIView {
     // MARK: Properties
-    // Label & Button
-    let topViewHeight: CGFloat = 30
+    // ImageView
+    let imageFrame: CGFloat = 40
+    // Label
     let userNicknameLabelSize: CGFloat = 15
-    let ButtonSize: CGFloat = 20
-    let likeButtonImage: String = "heart"
-    let likeButtonColor: UIColor = .black
-    let commentButtonImage: String = "message"
-    let commentButtonColor: UIColor = .black
     // Image CollectionView & Page Control
     let imageCollectionViewHeight: CGFloat = 200
     let imageNames: [String] = ["spider1", "spider2", "spider3"]
     let pageControlHeight: CGFloat = 30
+    // Like & Comment Button
+    let buttonFrame: CGFloat = 50
+    let buttonSize: CGFloat = 30
+    let buttonPadding: CGFloat = 8
+    let likeButtonImage: String = "heart"
+    let likeButtonColor: UIColor = .black
+    let commentButtonImage: String = "message"
+    let commentButtonColor: UIColor = .black
     // TextView
     let postTextViewHeight: CGFloat = 100
+    
+    lazy var profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "spider1")
+        
+        imageView.frame = CGRect(x: 0, y: 0, width: imageFrame, height: imageFrame)
+        
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderColor = UIColor.black.cgColor
+        imageView.layer.borderWidth = 1.0
+        
+        return imageView
+    }()
     
     lazy var userNicknameLabel: UILabel = {
         let label = UILabel()
@@ -62,11 +82,14 @@ class FeedView: UIView {
     lazy var likeButton: UIButton = {
         let button = UIButton()
         
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: ButtonSize, weight: .light)
-        let image = UIImage(systemName: likeButtonImage, withConfiguration: imageConfig)
+        button.frame = CGRect(x: 0, y: 0, width: buttonFrame, height: buttonFrame) // image Button 크기 지정.
         
-        button.setImage(image, for: .normal)
-        button.tintColor = likeButtonColor
+        let resizedImage = resizeUIImage(imageName: likeButtonImage, heightSize: buttonSize)
+        button.setImage(resizedImage, for: .normal)
+        
+        // 패딩 설정
+        let padding = UIEdgeInsets(top: buttonPadding, left: buttonPadding, bottom: buttonPadding, right: buttonPadding)
+        button.contentEdgeInsets = padding
         
         return button
     }()
@@ -74,17 +97,20 @@ class FeedView: UIView {
     lazy var commentButton: UIButton = {
         let button = UIButton()
         
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: ButtonSize, weight: .light)
-        let image = UIImage(systemName: commentButtonImage, withConfiguration: imageConfig)
+        button.frame = CGRect(x: 0, y: 0, width: buttonFrame, height: buttonFrame)
         
-        button.setImage(image, for: .normal)
-        button.tintColor = commentButtonColor
+        let resizedImage = resizeUIImage(imageName: commentButtonImage, heightSize: buttonSize)
+        button.setImage(resizedImage, for: .normal)
+        
+        // 패딩 설정
+        let padding = UIEdgeInsets(top: buttonPadding, left: buttonPadding, bottom: buttonPadding, right: buttonPadding)
+        button.contentEdgeInsets = padding
         
         return button
     }()
     
     lazy var postTextView: UITextView = {
-       let textView = UITextView()
+        let textView = UITextView()
         textView.isEditable = false
         textView.isSelectable = true
         
@@ -112,13 +138,14 @@ class FeedView: UIView {
     }
     
     private func setUI(){
-        [userNicknameLabel, imageCollectionView, pageControl, likeButton, commentButton, postTextView].forEach { view in
+        [profileImageView, userNicknameLabel, imageCollectionView, pageControl, likeButton, commentButton, postTextView].forEach { view in
             addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
     private func setConstraint() {
+        setProfileImageViewConstraint()
         setNicknameLabelConstraint()
         setImageCollectionViewConstraint()
         setPageControlConstraint()
@@ -127,10 +154,32 @@ class FeedView: UIView {
         setPostTextViewConstraint()
     }
     
+    // MARK: - Constant
+    // Profile Image
+    let profileHeight: CGFloat = 40
+    let profileWidth: CGFloat = 40
+    let profileLeadingConstant: CGFloat = 8
+    // Nickname Label
+    let topViewHeight: CGFloat = 40
+    let userNicknameLeadingConstant: CGFloat = 12
+    // Image Collection
+    let imageCollectionTopConstant: CGFloat = 8
+    // Like & Comment Button
+    let likeLeadingConstant: CGFloat = 2
+    
+    private func setProfileImageViewConstraint() {
+        NSLayoutConstraint.activate([
+            profileImageView.topAnchor.constraint(equalTo: topAnchor),
+            profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: profileLeadingConstant),
+            profileImageView.heightAnchor.constraint(equalToConstant: profileHeight),
+            profileImageView.widthAnchor.constraint(equalToConstant: profileWidth)
+        ])
+    }
+    
     private func setNicknameLabelConstraint() {
         NSLayoutConstraint.activate([
             userNicknameLabel.topAnchor.constraint(equalTo: topAnchor),
-            userNicknameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            userNicknameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: userNicknameLeadingConstant),
             userNicknameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             userNicknameLabel.heightAnchor.constraint(equalToConstant: topViewHeight)
         ])
@@ -138,10 +187,10 @@ class FeedView: UIView {
     
     private func setImageCollectionViewConstraint() {
         NSLayoutConstraint.activate([
-            imageCollectionView.topAnchor.constraint(equalTo: userNicknameLabel.bottomAnchor),
+            imageCollectionView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: imageCollectionTopConstant),
             imageCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            imageCollectionView.widthAnchor.constraint(equalToConstant: 200),
+            //            imageCollectionView.widthAnchor.constraint(equalToConstant: 200),
             imageCollectionView.heightAnchor.constraint(equalToConstant: imageCollectionViewHeight),
         ])
     }
@@ -158,16 +207,14 @@ class FeedView: UIView {
     private func setLikeButtonConstraint() {
         NSLayoutConstraint.activate([
             likeButton.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor),
-            likeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            likeButton.heightAnchor.constraint(equalToConstant: topViewHeight)
+            likeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: likeLeadingConstant),
         ])
     }
     
     private func setCommentButtonConstraint() {
         NSLayoutConstraint.activate([
             commentButton.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor),
-            commentButton.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 10),
-            commentButton.heightAnchor.constraint(equalToConstant: topViewHeight)
+            commentButton.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor),
         ])
     }
     
@@ -178,6 +225,31 @@ class FeedView: UIView {
             postTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
             postTextView.heightAnchor.constraint(equalToConstant: postTextViewHeight)
         ])
+    }
+    
+    // MARK: - Helper
+    // 이미지를 조절하고 싶었으나, SF Symbol이
+    private func resizeUIImage(imageName: String, heightSize: Double) -> UIImage {
+        let image = UIImage(systemName: imageName)
+        // 원하는 높이를 설정
+        let targetHeight: CGFloat = heightSize
+        
+        // 원래 이미지의 비율을 유지하면서 이미지 리사이즈
+        let originalAspectRatio = image!.size.width / image!.size.height
+        let targetWidth = targetHeight * originalAspectRatio
+        
+        // 목표 크기 설정
+        let targetSize = CGSize(width: targetWidth, height: targetHeight)
+        
+        // SF Symbol Configuration을 생성하고 weight를 변경
+        let configuration = UIImage.SymbolConfiguration(weight: .medium)
+        
+        UIGraphicsBeginImageContextWithOptions(targetSize, false, 0.0)
+        image?.withConfiguration(configuration).draw(in: CGRect(x: 0, y: 0, width: targetSize.width, height: targetSize.height))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return resizedImage!
     }
 }
 

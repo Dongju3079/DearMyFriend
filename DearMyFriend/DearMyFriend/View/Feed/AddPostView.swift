@@ -15,9 +15,10 @@ class AddPostView: UIView {
     
     // MARK: Properties
     // Label & Button
-    let topViewHeight: CGFloat = 30
-    let userNicknameLabelSize: CGFloat = 25
+    let topViewHeight: CGFloat = 50
+    let userNicknameLabelSize: CGFloat = 20
     let buttonSize: CGFloat = 20
+    let buttonImage: String = "xmark"
     let buttonColor: UIColor = .black
     var delegate: AddPostViewDelegate?
     // Image
@@ -39,8 +40,9 @@ class AddPostView: UIView {
     lazy var uploadPostButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("업로드", for: .normal)
+        button.setTitle("공유", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: buttonSize)
+        
         button.setTitleColor(buttonColor, for: .normal)
         button.addTarget(self, action: #selector(uploadButtonTapped), for: .touchUpInside)
         
@@ -50,9 +52,12 @@ class AddPostView: UIView {
     lazy var cancelPostButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("취소", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: buttonSize)
-        button.setTitleColor(buttonColor, for: .normal)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: buttonSize, weight: .light)
+        let image = UIImage(systemName: buttonImage, withConfiguration: imageConfig)
+        
+        button.setImage(image, for: .normal)
+        button.tintColor = buttonColor
+
         button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         
         return button
