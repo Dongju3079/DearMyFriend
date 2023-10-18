@@ -1,10 +1,14 @@
 import Foundation
 import UIKit
+import FirebaseFirestore
 
 class AddPostViewController: UIViewController {
     
     // MARK: Properties
     let addPostView: AddPostView = .init(frame: .zero)
+    let myFirestore = MyFirestore() // Firebase
+    
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -12,10 +16,10 @@ class AddPostViewController: UIViewController {
         configure()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        // NavigationBar 숨김.
-//        navigationController?.isNavigationBarHidden = true
-//    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        // NavigationBar 숨김.
+    //        navigationController?.isNavigationBarHidden = true
+    //    }
     
     // MARK: Configure
     private func configure() {
@@ -43,6 +47,10 @@ extension AddPostViewController: AddPostViewDelegate {
     }
     
     func uploadButtonTapped() {
+        let data = UserData(id: "_zerohyeon", nickname: "first", petAge: 2, petName: "happy")
+        myFirestore.saveUserInfo(userData: data) { error in
+            print("error: \(error)")
+        }
         dismiss(animated: true)
     }
     

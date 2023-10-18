@@ -93,7 +93,7 @@ class FeedTitleView: UIView {
     
     // MARK: Action
     @objc func addButtonTapped() {
-        print("action")
+        print("피드 데이터 추가")
         delegate?.addButtonTapped()
     }
 }

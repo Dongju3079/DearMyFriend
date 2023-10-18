@@ -5,6 +5,7 @@ class FeedViewController: UIViewController {
     // MARK: Properties
     let feedTitleView: FeedTitleView = .init(frame: .zero)
     let feedTitleViewHeight: CGFloat = 50
+    let myFirestore = MyFirestore() // Firebase
     
     // TableView
     private let feedTableView = UITableView()
@@ -13,6 +14,7 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         
         configure()
+        subscribeFirestore()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +62,20 @@ class FeedViewController: UIViewController {
             feedTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    private func subscribeFirestore() {
+        print("subscribeFirestore")
+        myFirestore.subscribe(collection: MyFirestore().collectionInfo, id: "_zerohyeon") { [weak self] result in
+            switch result {
+            case .success(let messages):
+                print("subscribeFirestore success")
+                print("message: \(messages)")
+            case .failure(let error):
+                print("subscribeFirestore failure")
+                print(error)
+            }
+        }
+    }
 }
 
 extension FeedViewController: UITableViewDataSource {
@@ -77,7 +93,6 @@ extension FeedViewController: UITableViewDataSource {
 
 extension FeedViewController: FeadTitleViewDelegate {
     func addButtonTapped() {
-        print("test")
         let addPostViewController = AddPostViewController()
         addPostViewController.modalPresentationStyle = .fullScreen
         present(addPostViewController, animated: true, completion: nil)

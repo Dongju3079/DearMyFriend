@@ -75,7 +75,7 @@ class AddPostView: UIView {
     
     lazy var postTextView: UITextView = {
        let textView = UITextView()
-        textView.isEditable = false
+        textView.isEditable = true
         textView.isSelectable = true
         
         textView.backgroundColor = .blue
