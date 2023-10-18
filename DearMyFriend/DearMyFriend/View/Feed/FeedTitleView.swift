@@ -17,7 +17,7 @@ class FeedTitleView: UIView {
     
     // Button
     let addPostButtonSize: CGFloat = 30
-    let addPostButtonImage: String = "photo.badge.plus"
+    let addPostButtonImage: String = "note.text.badge.plus"
     let addPostButtonColor: UIColor = .black
     var delegate: FeadTitleViewDelegate?
     

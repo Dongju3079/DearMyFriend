@@ -22,7 +22,9 @@ class FeedTableViewCell: UITableViewCell {
     // MARK: Initalizers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        
         self.contentView.backgroundColor = .yellow
+        
         configure()
         setupCollectionView()
     }

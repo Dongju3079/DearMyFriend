@@ -44,7 +44,12 @@ class FeedViewController: UIViewController {
     
     func setupTableView(){
         feedTableView.dataSource = self
-        feedTableView.rowHeight = 330
+        
+        feedTableView.separatorStyle = .none // Cell 사이 줄 제거
+        
+        let feedCellHeight: CGFloat = FeedView().calFeedViewHeight() + 10 // Cell의 여유분의 높이 10을 줌.
+        
+        feedTableView.rowHeight = feedCellHeight
         
         feedTableView.register(FeedTableViewCell.self, forCellReuseIdentifier: FeedTableViewCell.identifier)
         
@@ -86,6 +91,7 @@ extension FeedViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedTableViewCell.identifier, for: indexPath) as! FeedTableViewCell
+        cell.selectionStyle = .none // cell 선택 효과 없애기
         
         return cell
     }
