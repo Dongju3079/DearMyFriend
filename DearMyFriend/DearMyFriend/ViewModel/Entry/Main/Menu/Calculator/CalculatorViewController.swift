@@ -63,14 +63,14 @@ class CalculatorViewController: UIViewController {
         button.isSelected = true
         return button
     }()
-
+    
     private var checking = {
         let animeView = LottieAnimationView(name: "checking")
         animeView.contentMode = .scaleAspectFit
         animeView.loopMode = .playOnce
         animeView.animationSpeed = 5
         return animeView
-
+        
     }()
     
     private let weightLabel = {
@@ -85,7 +85,6 @@ class CalculatorViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "몸무게(kg)를 입력해주세요."
         textField.contentVerticalAlignment = .center
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.masksToBounds = true
         textField.layer.cornerRadius = 10
         textField.textColor = UIColor(named: "텍스트컬러")
@@ -93,12 +92,35 @@ class CalculatorViewController: UIViewController {
         textField.font = UIFont.boldSystemFont(ofSize: 18)
         textField.textAlignment = .center
         textField.layer.borderColor = UIColor(named: "보더컬러")?.cgColor
-        textField.layer.borderWidth = 1.0
+        textField.layer.borderWidth = 2.0
         textField.tintColor = .magenta
         textField.clearButtonMode = .whileEditing
         textField.clearsOnBeginEditing = true
         
         return textField
+    }()
+    
+    private let 계산버튼 = {
+        let button = UIButton()
+        button.setTitle("계산하기", for: .normal)
+        button.setTitleColor(UIColor(named: "주요택스트컬러"), for: .normal)
+        button.setTitle("계산중", for: .selected)
+        button.layer.borderColor = UIColor(named: "보더컬러")?.cgColor
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 2
+        button.backgroundColor = UIColor.clear
+        button.isSelected = false
+        
+        return button
+    }()
+    
+    private var playingButton = {
+        let animeView = LottieAnimationView(name: "계산버튼")
+        animeView.contentMode = .scaleAspectFit
+        animeView.loopMode = .playOnce
+        animeView.animationSpeed = 1
+        return animeView
+        
     }()
     
     override func viewDidLoad() {
@@ -113,7 +135,7 @@ class CalculatorViewController: UIViewController {
         유아이레이아웃()
         계산기화면레이아웃()
         몸무게입력.delegate = self
-        animalClick()
+        clickEvent()
     }
     
     func 유아이레이아웃() {
@@ -167,7 +189,7 @@ class CalculatorViewController: UIViewController {
     }
     
     func 계산기화면레이아웃() {
-        for 계산기유아이 in [몸무게입력] {
+        for 계산기유아이 in [몸무게입력, 계산버튼] {
             view.addSubview(계산기유아이)
         }
         몸무게입력.snp.makeConstraints { make in
@@ -176,11 +198,16 @@ class CalculatorViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(weightLabel.snp.bottom).offset(17)
         }
+        계산버튼.snp.makeConstraints { make in
+            make.width.equalTo(220)
+            make.height.equalTo(35)
+            make.top.equalTo(몸무게입력.snp.bottom).offset(40)
+            make.centerX.equalToSuperview()
+        }
     }
     
     @objc func 강아지버튼클릭() {
-        print("강아지 버튼이 클릭되었습니다.")
-        if !고양이버튼.subviews.contains(checking) {
+        if !고양이버튼.subviews.contains(checking) && !강아지버튼.subviews.contains(checking) {
             강아지버튼.addSubview(checking)
             checking.snp.remakeConstraints { make in
                 make.top.trailing.equalTo(강아지버튼)
@@ -188,9 +215,15 @@ class CalculatorViewController: UIViewController {
                 make.width.equalTo(20)
             }
             checking.play()
+            print("강아지 버튼이 클릭되었습니다.")
             weightLabel.text = "댕댕이 몸무게"
-
-        } else {
+        }
+        else if !고양이버튼.subviews.contains(checking) && 강아지버튼.subviews.contains(checking) {
+            checking.removeFromSuperview()
+            print("버튼클릭 취소")
+            weightLabel.text = "반려동물 몸무게"
+        }
+        else if 고양이버튼.subviews.contains(checking) {
             checking.removeFromSuperview()
             강아지버튼.addSubview(checking)
             checking.snp.remakeConstraints { make in
@@ -199,23 +232,29 @@ class CalculatorViewController: UIViewController {
                 make.width.equalTo(20)
             }
             checking.play()
+            print("고양이버튼에서 강아지 버튼으로 클릭되었습니다.")
             weightLabel.text = "댕댕이 몸무게"
         }
     }
-
+    
     @objc func 고양이버튼클릭() {
-        print("고양이 버튼이 클릭되었습니다.")
-        if !강아지버튼.subviews.contains(checking) {
+        if !강아지버튼.subviews.contains(checking) && !고양이버튼.subviews.contains(checking) {
             고양이버튼.addSubview(checking)
             checking.snp.remakeConstraints { make in
                 make.top.trailing.equalTo(고양이버튼)
                 make.height.equalTo(20)
                 make.width.equalTo(20)
             }
-            checking.play()
+            print("고양이 버튼이 클릭되었습니다.")
             weightLabel.text = "냥냥이 몸무게"
-
-        } else if 강아지버튼.subviews.contains(checking) {
+            checking.play()
+        }
+        else if !강아지버튼.subviews.contains(checking) && 고양이버튼.subviews.contains(checking) {
+            checking.removeFromSuperview()
+            print("버튼클릭 취소")
+            weightLabel.text = "반려동물 몸무게"
+        }
+        else if 강아지버튼.subviews.contains(checking) {
             checking.removeFromSuperview()
             고양이버튼.addSubview(checking)
             checking.snp.remakeConstraints { make in
@@ -224,16 +263,17 @@ class CalculatorViewController: UIViewController {
                 make.width.equalTo(20)
             }
             checking.play()
-            weightLabel.text = "냥냥이 몸무게"
+            print("강아지버튼에서 고양이버튼이 클릭되었습니다.")
+            weightLabel.text = "동물 몸무게"
         }
     }
-
-    func animalClick() {
+    
+    func clickEvent() {
         강아지버튼.addTarget(self, action: #selector(강아지버튼클릭), for: .touchUpInside)
         고양이버튼.addTarget(self, action: #selector(고양이버튼클릭), for: .touchUpInside)
     }
 }
-
+   
 extension CalculatorViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let allowedCharacters = CharacterSet.decimalDigits
