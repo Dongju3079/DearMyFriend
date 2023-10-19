@@ -47,8 +47,14 @@ extension AddPostViewController: AddPostViewDelegate {
     }
     
     func uploadButtonTapped() {
-        let data = UserData(id: "_zerohyeon", nickname: "first", petAge: 2, petName: "happy")
-        myFirestore.saveUserInfo(userData: data) { error in
+        let feedId: String = "현재 로그인된 ID"
+        let feedImage: [String] = ["여러 이미지"]
+        let feedPost: String = addPostView.postTextView.text
+        let feedLike: [String] = [""] // 처음에 생성할 때는 좋아요 수가 없음.
+        let feedComment: [[String: String]] = [[:]] // 처음에 생성할 때는 댓글이 없음.
+        
+        let data = FeedData(id: feedId, image: feedImage, post: feedPost, like: feedLike, comment: feedComment)
+        myFirestore.saveUserFeed(feedData: data) { error in
             print("error: \(error)")
         }
         dismiss(animated: true)

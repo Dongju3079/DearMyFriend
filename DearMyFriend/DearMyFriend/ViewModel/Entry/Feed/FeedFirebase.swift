@@ -66,16 +66,16 @@ final class MyFirestore {
         }
     }
     
-    func saveUserFeed(userData: UserData, completion: ((Error?) -> Void)? = nil) {
-        let collectionPath = "\(collectionUsers)/\(userData.id)/\(collectionFeed)"
+    func saveUserFeed(feedData: FeedData, completion: ((Error?) -> Void)? = nil) {
+        let collectionPath = "\(collectionUsers)/\(feedData.id)/\(collectionFeed)"
         let collectionListener = Firestore.firestore().collection(collectionPath)
         
-        guard let dictionary = userData.asDictionary else { // Firestore에 저장 가능한 형식으로 변환할 수 잇는 dictionary
+        guard let dictionary = feedData.asDictionary else { // Firestore에 저장 가능한 형식으로 변환할 수 잇는 dictionary
             print("decode error")
             return
         }
         // document : 사용자의 이름(userData.id)
-        collectionListener.document("\(userData.id)").setData(dictionary){ error in // Firestore Collection에 데이터를 추가.
+        collectionListener.document("\(feedData.id)").setData(dictionary){ error in // Firestore Collection에 데이터를 추가.
             completion?(error)
         }
     }
