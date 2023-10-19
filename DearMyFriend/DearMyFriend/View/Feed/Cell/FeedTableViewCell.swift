@@ -74,7 +74,7 @@ extension FeedTableViewCell: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
         
-        cell.configure(image: imageNames[indexPath.item])
+        cell.configure(image: UIImage(named: imageNames[indexPath.item])!)
         
         return cell
     }

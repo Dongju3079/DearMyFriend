@@ -33,9 +33,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configure(image: String) {
-        if let image = UIImage(named: image) {
-            imageView.image = image
-        }
+    func configure(image: UIImage) {
+        imageView.image = image
     }
 }

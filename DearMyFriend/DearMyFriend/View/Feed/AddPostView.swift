@@ -15,14 +15,12 @@ class AddPostView: UIView {
     
     // MARK: Properties
     // Label & Button
-    let topViewHeight: CGFloat = 50
     let userNicknameLabelSize: CGFloat = 20
     let buttonSize: CGFloat = 20
     let buttonImage: String = "xmark"
     let buttonColor: UIColor = .black
     var delegate: AddPostViewDelegate?
     // Image
-    let imageViewHeight: CGFloat = 500
     let imageName: String = "spider1"
     // TextView
     let postTextViewHeight: CGFloat = 100
@@ -78,6 +76,33 @@ class AddPostView: UIView {
         return button
     }()
     
+    lazy var imageCollectionView: UICollectionView = {
+        // collectionView layout setting
+        let layout = UICollectionViewFlowLayout.init()
+        layout.scrollDirection = .horizontal // 스크롤 방향 설정
+        layout.minimumLineSpacing = 0 // 라인 간격
+        layout.minimumInteritemSpacing = 0 // 항목 간격
+        layout.footerReferenceSize = .zero // 헤더 사이즈 설정
+        layout.headerReferenceSize = .zero // 푸터 사이즈 설정
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isScrollEnabled = true // 스크롤 활성화
+        collectionView.isPagingEnabled = true // 페이징 활성화
+        collectionView.showsHorizontalScrollIndicator = false // 수평 스크롤바를 숨김.
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+        collectionView.backgroundColor = .white
+        
+        return collectionView
+    }()
+    
+    lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.currentPageIndicatorTintColor = .yellow
+        pageControl.pageIndicatorTintColor = .green
+        
+        return pageControl
+    }()
+    
     lazy var postTextView: UITextView = {
        let textView = UITextView()
         textView.isEditable = true
@@ -107,7 +132,7 @@ class AddPostView: UIView {
     }
     
     private func setUI(){
-        [userNicknameLabel, uploadPostButton, cancelPostButton, postImageView, imagePickerButton, postTextView].forEach { view in
+        [userNicknameLabel, uploadPostButton, cancelPostButton, postImageView, imagePickerButton, imageCollectionView, pageControl, postTextView].forEach { view in
             addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -118,8 +143,20 @@ class AddPostView: UIView {
         setCancelPostButtonConstraint()
         setAddPostButtonConstraint()
         setPostImageViewConstraint()
+        setImageCollectionViewConstraint()
         setPostTextViewConstraint()
     }
+    
+    // MARK: - Constant
+    // Button & Label
+    let topViewHeight: CGFloat = 50
+    let buttonSideConstant: CGFloat = 10
+    // Image Collection
+    let imageViewHeight: CGFloat = 300
+    let imageCollectionTopConstant: CGFloat = 8
+    let imageCollectionSideSpaceConstant: CGFloat = 16
+    let imageCollectionViewHeight: CGFloat = 300
+    let pageControlHeight: CGFloat = 30
     
     private func setNicknameLabelConstraint() {
         NSLayoutConstraint.activate([
@@ -133,7 +170,7 @@ class AddPostView: UIView {
     private func setCancelPostButtonConstraint() {
         NSLayoutConstraint.activate([
             cancelPostButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            cancelPostButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            cancelPostButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: buttonSideConstant),
             cancelPostButton.heightAnchor.constraint(equalToConstant: topViewHeight)
         ])
     }
@@ -141,13 +178,14 @@ class AddPostView: UIView {
     private func setAddPostButtonConstraint() {
         NSLayoutConstraint.activate([
             uploadPostButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            uploadPostButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            uploadPostButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -buttonSideConstant),
             uploadPostButton.heightAnchor.constraint(equalToConstant: topViewHeight)
         ])
     }
     
     private func setPostImageViewConstraint() {
         NSLayoutConstraint.activate([
+            // image 표시 전
             postImageView.topAnchor.constraint(equalTo: userNicknameLabel.bottomAnchor),
             postImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             postImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
@@ -157,6 +195,25 @@ class AddPostView: UIView {
             imagePickerButton.leadingAnchor.constraint(equalTo: postImageView.leadingAnchor),
             imagePickerButton.trailingAnchor.constraint(equalTo: postImageView.trailingAnchor),
             imagePickerButton.bottomAnchor.constraint(equalTo: postImageView.bottomAnchor)
+        ])
+    }
+    
+    private func setImageCollectionViewConstraint() {
+        
+        imageCollectionView.isHidden = true
+        pageControl.isHidden = true
+        
+        NSLayoutConstraint.activate([
+            // 선택된 이미지 표시
+            imageCollectionView.topAnchor.constraint(equalTo: userNicknameLabel.bottomAnchor),
+            imageCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            imageCollectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            imageCollectionView.heightAnchor.constraint(equalToConstant: imageViewHeight),
+            
+            pageControl.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: -pageControlHeight),
+            pageControl.leadingAnchor.constraint(equalTo: leadingAnchor),
+            pageControl.trailingAnchor.constraint(equalTo: trailingAnchor),
+            pageControl.heightAnchor.constraint(equalToConstant: pageControlHeight)
         ])
     }
     
@@ -184,5 +241,3 @@ class AddPostView: UIView {
         delegate?.imageViewTapped()
     }
 }
-
-
