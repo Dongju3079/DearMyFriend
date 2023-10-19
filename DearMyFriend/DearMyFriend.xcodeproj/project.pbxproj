@@ -684,6 +684,8 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.0.0;
+			};
+		};
 		EBFAE78B2ADCD7D400053D85 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -704,6 +706,7 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1FCE8EB22AD78EA100950E92 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
 		EBFAE78C2ADCD7D400053D85 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EBFAE78B2ADCD7D400053D85 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
