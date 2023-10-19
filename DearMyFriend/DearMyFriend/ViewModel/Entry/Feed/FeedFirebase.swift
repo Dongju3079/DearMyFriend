@@ -53,7 +53,7 @@ final class MyFirestore {
     }
     
     func saveUserInfo(userData: UserData, completion: ((Error?) -> Void)? = nil) {
-        let collectionPath = "\(collectionUsers)/\(userData.id)/\(collectionInfo)"
+        let collectionPath = "\(collectionUsers)/\(userData.id)/\(collectionInfo)" //Users/_zerohyeon/Info
         let collectionListener = Firestore.firestore().collection(collectionPath)
         
         guard let dictionary = userData.asDictionary else { // Firestore에 저장 가능한 형식으로 변환할 수 잇는 dictionary
