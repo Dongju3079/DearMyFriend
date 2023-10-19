@@ -32,6 +32,19 @@
 		52D9984E2AD6B88600679B15 /* MainCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9984D2AD6B88600679B15 /* MainCollectionView.swift */; };
 		52D998502AD6BAC000679B15 /* MainMenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9984F2AD6BAC000679B15 /* MainMenuCellView.swift */; };
 		52D998562AD6CDF900679B15 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D998552AD6CDF900679B15 /* TabBarController.swift */; };
+		EBD435272AD7A9290070198E /* FeedTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435262AD7A9290070198E /* FeedTitleView.swift */; };
+		EBD4352A2AD7B9080070198E /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435292AD7B9080070198E /* FeedTableViewCell.swift */; };
+		EBD4352C2AD7B9160070198E /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4352B2AD7B9160070198E /* FeedView.swift */; };
+		EBD435332AD7FD880070198E /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435322AD7FD880070198E /* ImageCollectionViewCell.swift */; };
+		EBD435352AD8E3F60070198E /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435342AD8E3F60070198E /* AddPostView.swift */; };
+		EBD435372AD8E91D0070198E /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD435362AD8E91D0070198E /* AddPostViewController.swift */; };
+		EBFAE78A2ADCD59000053D85 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBFAE7892ADCD59000053D85 /* GoogleService-Info.plist */; };
+		EBFAE78D2ADCD7D400053D85 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EBFAE78C2ADCD7D400053D85 /* FirebaseAnalytics */; };
+		EBFAE7922ADCDE8400053D85 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFAE7912ADCDE8400053D85 /* FeedModel.swift */; };
+		EBFAE7942ADCE09B00053D85 /* FeedFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFAE7932ADCE09B00053D85 /* FeedFirebase.swift */; };
+		EBFAE7972ADCE15D00053D85 /* FeedFirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFAE7962ADCE15D00053D85 /* FeedFirebaseError.swift */; };
+		EBFAE79A2ADD032500053D85 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EBFAE7992ADD032500053D85 /* FirebaseFirestore */; };
+		EBFAE79C2ADD035500053D85 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBFAE79B2ADD035500053D85 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +73,16 @@
 		52D9984D2AD6B88600679B15 /* MainCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionView.swift; sourceTree = "<group>"; };
 		52D9984F2AD6BAC000679B15 /* MainMenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuCellView.swift; sourceTree = "<group>"; };
 		52D998552AD6CDF900679B15 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		EBD435262AD7A9290070198E /* FeedTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTitleView.swift; sourceTree = "<group>"; };
+		EBD435292AD7B9080070198E /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		EBD4352B2AD7B9160070198E /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		EBD435322AD7FD880070198E /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		EBD435342AD8E3F60070198E /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
+		EBD435362AD8E91D0070198E /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
+		EBFAE7892ADCD59000053D85 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EBFAE7912ADCDE8400053D85 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
+		EBFAE7932ADCE09B00053D85 /* FeedFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFirebase.swift; sourceTree = "<group>"; };
+		EBFAE7962ADCE15D00053D85 /* FeedFirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFirebaseError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +92,10 @@
 			files = (
 				1FCE8EB12AD78E9400950E92 /* SnapKit in Frameworks */,
 				1FCE8EB42AD78EA100950E92 /* Lottie in Frameworks */,
+
+				EBFAE78D2ADCD7D400053D85 /* FirebaseAnalytics in Frameworks */,
+				EBFAE79A2ADD032500053D85 /* FirebaseFirestore in Frameworks */,
+				EBFAE79C2ADD035500053D85 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +158,7 @@
 			children = (
 				52D998152AD6A89600679B15 /* DearMyFriend */,
 				52D998142AD6A89600679B15 /* Products */,
+				EBFAE7982ADD032500053D85 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,23 +180,18 @@
 				52D9981F2AD6A89700679B15 /* Assets.xcassets */,
 				52D998212AD6A89700679B15 /* LaunchScreen.storyboard */,
 				52D998242AD6A89700679B15 /* Info.plist */,
-				52D998402AD6AC5200679B15 /* Model */,
+				EBFAE7892ADCD59000053D85 /* GoogleService-Info.plist */,
+				EBFAE7902ADCDE6D00053D85 /* Model */,
 				52D998412AD6AC7600679B15 /* View */,
 				52D998422AD6AC7B00679B15 /* ViewModel */,
 			);
 			path = DearMyFriend;
 			sourceTree = "<group>";
 		};
-		52D998402AD6AC5200679B15 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		52D998412AD6AC7600679B15 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EBD435252AD7A9000070198E /* Feed */,
 				52D9984D2AD6B88600679B15 /* MainCollectionView.swift */,
 				52D9984F2AD6BAC000679B15 /* MainMenuCellView.swift */,
 			);
@@ -215,6 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				52D9982A2AD6AADC00679B15 /* FeedViewController.swift */,
+				EBD435362AD8E91D0070198E /* AddPostViewController.swift */,
+				EBFAE7932ADCE09B00053D85 /* FeedFirebase.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -242,6 +267,50 @@
 			path = Entry;
 			sourceTree = "<group>";
 		};
+		EBD435252AD7A9000070198E /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				EBD435282AD7B8E30070198E /* Cell */,
+				EBD435262AD7A9290070198E /* FeedTitleView.swift */,
+				EBD4352B2AD7B9160070198E /* FeedView.swift */,
+				EBD435342AD8E3F60070198E /* AddPostView.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		EBD435282AD7B8E30070198E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				EBD435292AD7B9080070198E /* FeedTableViewCell.swift */,
+				EBD435322AD7FD880070198E /* ImageCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		EBFAE7902ADCDE6D00053D85 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EBFAE7952ADCE14700053D85 /* Feed */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EBFAE7952ADCE14700053D85 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				EBFAE7912ADCDE8400053D85 /* FeedModel.swift */,
+				EBFAE7962ADCE15D00053D85 /* FeedFirebaseError.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		EBFAE7982ADD032500053D85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -261,6 +330,9 @@
 			packageProductDependencies = (
 				1FCE8EB02AD78E9400950E92 /* SnapKit */,
 				1FCE8EB32AD78EA100950E92 /* Lottie */,
+				EBFAE78C2ADCD7D400053D85 /* FirebaseAnalytics */,
+				EBFAE7992ADD032500053D85 /* FirebaseFirestore */,
+				EBFAE79B2ADD035500053D85 /* FirebaseFirestoreSwift */,
 			);
 			productName = DearMyFriend;
 			productReference = 52D998132AD6A89600679B15 /* DearMyFriend.app */;
@@ -295,6 +367,8 @@
 				1FCE8EB22AD78EA100950E92 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				1F548F572ADF08620010746B /* XCRemoteSwiftPackageReference "Hero" */,
 				1F548F5A2ADF0DB90010746B /* XCRemoteSwiftPackageReference "BouncyLayout" */,
+
+				EBFAE78B2ADCD7D400053D85 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 52D998142AD6A89600679B15 /* Products */;
 			projectDirPath = "";
@@ -312,6 +386,7 @@
 			files = (
 				52D998232AD6A89700679B15 /* LaunchScreen.storyboard in Resources */,
 				52D998202AD6A89700679B15 /* Assets.xcassets in Resources */,
+				EBFAE78A2ADCD59000053D85 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,18 +404,28 @@
 				52D9984C2AD6B32F00679B15 /* Helper.swift in Sources */,
 				52D998562AD6CDF900679B15 /* TabBarController.swift in Sources */,
 				1FCE8EB92AD7DE8700950E92 /* DataForYoutube.swift in Sources */,
+
+				EBFAE7942ADCE09B00053D85 /* FeedFirebase.swift in Sources */,
+				EBD435372AD8E91D0070198E /* AddPostViewController.swift in Sources */,
+				EBD435272AD7A9290070198E /* FeedTitleView.swift in Sources */,
 				52D998502AD6BAC000679B15 /* MainMenuCellView.swift in Sources */,
 				52D9982F2AD6AAF800679B15 /* UserInfoViewController.swift in Sources */,
+				EBD4352C2AD7B9160070198E /* FeedView.swift in Sources */,
 				52D998392AD6AB6600679B15 /* PopularityViewController.swift in Sources */,
 				52D998172AD6A89600679B15 /* AppDelegate.swift in Sources */,
+				EBD4352A2AD7B9080070198E /* FeedTableViewCell.swift in Sources */,
 				52D9983F2AD6ABB500679B15 /* StoreViewController.swift in Sources */,
+				EBD435332AD7FD880070198E /* ImageCollectionViewCell.swift in Sources */,
 				52D9982B2AD6AADC00679B15 /* FeedViewController.swift in Sources */,
 				52D9983B2AD6AB9B00679B15 /* MapViewController.swift in Sources */,
+				EBFAE7972ADCE15D00053D85 /* FeedFirebaseError.swift in Sources */,
 				52D9984E2AD6B88600679B15 /* MainCollectionView.swift in Sources */,
 				52D9982D2AD6AAF000679B15 /* MyViewController.swift in Sources */,
 				52D9984A2AD6B0B900679B15 /* Extension.swift in Sources */,
 				52D998352AD6AB1800679B15 /* CalculatorViewController.swift in Sources */,
+				EBD435352AD8E3F60070198E /* AddPostView.swift in Sources */,
 				52D998192AD6A89600679B15 /* SceneDelegate.swift in Sources */,
+				EBFAE7922ADCDE8400053D85 /* FeedModel.swift in Sources */,
 				52D9983D2AD6ABA700679B15 /* WishViewController.swift in Sources */,
 				52D998372AD6AB2900679B15 /* MainViewController.swift in Sources */,
 			);
@@ -484,9 +569,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = LNXWGGBBH6;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DearMyFriend/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -501,6 +587,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DearMyFriend.DearMyFriend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -515,9 +602,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = LNXWGGBBH6;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DearMyFriend/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -532,6 +620,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DearMyFriend.DearMyFriend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -595,6 +684,12 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.0.0;
+		EBFAE78B2ADCD7D400053D85 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -609,6 +704,20 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1FCE8EB22AD78EA100950E92 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		EBFAE78C2ADCD7D400053D85 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBFAE78B2ADCD7D400053D85 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		EBFAE7992ADD032500053D85 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBFAE78B2ADCD7D400053D85 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		EBFAE79B2ADD035500053D85 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBFAE78B2ADCD7D400053D85 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
