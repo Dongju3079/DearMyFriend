@@ -420,6 +420,7 @@
 				5258C26B2AE648AF00E9FC2B /* SpoqaHanSansNeo-Medium.ttf in Resources */,
 				5258C26C2AE648AF00E9FC2B /* SpoqaHanSansNeo-Light.ttf in Resources */,
 				5258C26E2AE648AF00E9FC2B /* SpoqaHanSansNeo-Thin.ttf in Resources */,
+				EBD2B7372AE21C33007FD1DA /* .gitignore in Resources */,
 				52D998202AD6A89700679B15 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,6 +459,7 @@
 				EBD2B7582AE23FEE007FD1DA /* FeedTableViewCell.swift in Sources */,
 				5258C2712AE65C0F00E9FC2B /* RecommendationStore.swift in Sources */,
 				EBD2B7622AE2410F007FD1DA /* AddPostView.swift in Sources */,
+				EBD2B7582AE23FEE007FD1DA /* FeedTableViewCell.swift in Sources */,
 				52D998352AD6AB1800679B15 /* CalculatorViewController.swift in Sources */,
 				4E275AB22AE27D3A005146AA /* NaverSearchService.swift in Sources */,
 				1FBA09922AE6732700A3B42C /* YouTubeTableViewCell.swift in Sources */,
