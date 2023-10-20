@@ -44,6 +44,8 @@
 		EB5EDEE22AEA4030002075F9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5EDEE12AEA4030002075F9 /* UserModel.swift */; };
 		52EFE7A92AE7AE3E00770F03 /* IndicatorCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EFE7A82AE7AE3E00770F03 /* IndicatorCircle.swift */; };
 		52EFE7AB2AE7AFC800770F03 /* PopularityCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EFE7AA2AE7AFC800770F03 /* PopularityCellView.swift */; };
+		EB5EDEE22AEA4030002075F9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5EDEE12AEA4030002075F9 /* UserModel.swift */; };
+
 		EBD2B73B2AE21C61007FD1DA /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2B73A2AE21C61007FD1DA /* FeedModel.swift */; };
 		EBD2B73E2AE221F5007FD1DA /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EBD2B73D2AE221F5007FD1DA /* FirebaseAnalytics */; };
 		EBD2B7402AE221F5007FD1DA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EBD2B73F2AE221F5007FD1DA /* FirebaseFirestore */; };
