@@ -27,6 +27,15 @@
 		52D9984E2AD6B88600679B15 /* MainCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9984D2AD6B88600679B15 /* MainCollectionView.swift */; };
 		52D998502AD6BAC000679B15 /* MainMenuCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9984F2AD6BAC000679B15 /* MainMenuCellView.swift */; };
 		52D998562AD6CDF900679B15 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D998552AD6CDF900679B15 /* TabBarController.swift */; };
+		EBD2B7022AE1FC99007FD1DA /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2B7012AE1FC99007FD1DA /* FeedModel.swift */; };
+		EBD2B70F2AE200BA007FD1DA /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EBD2B70E2AE200BA007FD1DA /* FirebaseAnalytics */; };
+		EBD2B7112AE200BA007FD1DA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EBD2B7102AE200BA007FD1DA /* FirebaseFirestore */; };
+		EBD2B7132AE200BA007FD1DA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBD2B7122AE200BA007FD1DA /* FirebaseFirestoreSwift */; };
+		EBD2B7152AE200BA007FD1DA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = EBD2B7142AE200BA007FD1DA /* FirebaseStorage */; };
+		EBD2B7182AE200EF007FD1DA /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = EBD2B7172AE200EF007FD1DA /* NMapsMap */; };
+		EBD2B71B2AE2011C007FD1DA /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EBD2B71A2AE2011C007FD1DA /* Lottie */; };
+		EBD2B71E2AE20172007FD1DA /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = EBD2B71D2AE20172007FD1DA /* Moya */; };
+		EBD2B7212AE201B4007FD1DA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EBD2B7202AE201B4007FD1DA /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +61,7 @@
 		52D9984D2AD6B88600679B15 /* MainCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionView.swift; sourceTree = "<group>"; };
 		52D9984F2AD6BAC000679B15 /* MainMenuCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuCellView.swift; sourceTree = "<group>"; };
 		52D998552AD6CDF900679B15 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		EBD2B7012AE1FC99007FD1DA /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +69,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBD2B70F2AE200BA007FD1DA /* FirebaseAnalytics in Frameworks */,
+				EBD2B7212AE201B4007FD1DA /* SnapKit in Frameworks */,
+				EBD2B7152AE200BA007FD1DA /* FirebaseStorage in Frameworks */,
+				EBD2B7182AE200EF007FD1DA /* NMapsMap in Frameworks */,
+				EBD2B7112AE200BA007FD1DA /* FirebaseFirestore in Frameworks */,
+				EBD2B7132AE200BA007FD1DA /* FirebaseFirestoreSwift in Frameworks */,
+				EBD2B71E2AE20172007FD1DA /* Moya in Frameworks */,
+				EBD2B71B2AE2011C007FD1DA /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,25 +109,17 @@
 				52D9981F2AD6A89700679B15 /* Assets.xcassets */,
 				52D998212AD6A89700679B15 /* LaunchScreen.storyboard */,
 				52D998242AD6A89700679B15 /* Info.plist */,
-				52D998402AD6AC5200679B15 /* Model */,
+				EBD2B6FF2AE1FC7E007FD1DA /* Model */,
 				52D998412AD6AC7600679B15 /* View */,
 				52D998422AD6AC7B00679B15 /* ViewModel */,
 			);
 			path = DearMyFriend;
 			sourceTree = "<group>";
 		};
-		52D998402AD6AC5200679B15 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		52D998412AD6AC7600679B15 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				52D9984D2AD6B88600679B15 /* MainCollectionView.swift */,
-				52D9984F2AD6BAC000679B15 /* MainMenuCellView.swift */,
+				EBD2B7082AE1FD18007FD1DA /* MainView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -161,11 +171,11 @@
 		52D998482AD6B01E00679B15 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				52D998322AD6AB0E00679B15 /* YouTubeViewController.swift */,
-				52D9983A2AD6AB9B00679B15 /* MapViewController.swift */,
-				52D9983C2AD6ABA700679B15 /* WishViewController.swift */,
-				52D9983E2AD6ABB500679B15 /* StoreViewController.swift */,
-				52D998342AD6AB1800679B15 /* CalculatorViewController.swift */,
+				EBD2B7072AE1FCF7007FD1DA /* CalculatorView */,
+				EBD2B7062AE1FCEF007FD1DA /* StoreView */,
+				EBD2B7052AE1FCE3007FD1DA /* WishView */,
+				EBD2B7042AE1FCDB007FD1DA /* MapView */,
+				EBD2B7032AE1FCD0007FD1DA /* YouTube */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -179,6 +189,71 @@
 				52D998452AD6AE4800679B15 /* MyProfile */,
 			);
 			path = Entry;
+			sourceTree = "<group>";
+		};
+		EBD2B6FF2AE1FC7E007FD1DA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EBD2B7002AE1FC8B007FD1DA /* Feed */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EBD2B7002AE1FC8B007FD1DA /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				EBD2B7012AE1FC99007FD1DA /* FeedModel.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		EBD2B7032AE1FCD0007FD1DA /* YouTube */ = {
+			isa = PBXGroup;
+			children = (
+				52D998322AD6AB0E00679B15 /* YouTubeViewController.swift */,
+			);
+			path = YouTube;
+			sourceTree = "<group>";
+		};
+		EBD2B7042AE1FCDB007FD1DA /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				52D9983A2AD6AB9B00679B15 /* MapViewController.swift */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		EBD2B7052AE1FCE3007FD1DA /* WishView */ = {
+			isa = PBXGroup;
+			children = (
+				52D9983C2AD6ABA700679B15 /* WishViewController.swift */,
+			);
+			path = WishView;
+			sourceTree = "<group>";
+		};
+		EBD2B7062AE1FCEF007FD1DA /* StoreView */ = {
+			isa = PBXGroup;
+			children = (
+				52D9983E2AD6ABB500679B15 /* StoreViewController.swift */,
+			);
+			path = StoreView;
+			sourceTree = "<group>";
+		};
+		EBD2B7072AE1FCF7007FD1DA /* CalculatorView */ = {
+			isa = PBXGroup;
+			children = (
+				52D998342AD6AB1800679B15 /* CalculatorViewController.swift */,
+			);
+			path = CalculatorView;
+			sourceTree = "<group>";
+		};
+		EBD2B7082AE1FD18007FD1DA /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				52D9984D2AD6B88600679B15 /* MainCollectionView.swift */,
+				52D9984F2AD6BAC000679B15 /* MainMenuCellView.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +272,16 @@
 			dependencies = (
 			);
 			name = DearMyFriend;
+			packageProductDependencies = (
+				EBD2B70E2AE200BA007FD1DA /* FirebaseAnalytics */,
+				EBD2B7102AE200BA007FD1DA /* FirebaseFirestore */,
+				EBD2B7122AE200BA007FD1DA /* FirebaseFirestoreSwift */,
+				EBD2B7142AE200BA007FD1DA /* FirebaseStorage */,
+				EBD2B7172AE200EF007FD1DA /* NMapsMap */,
+				EBD2B71A2AE2011C007FD1DA /* Lottie */,
+				EBD2B71D2AE20172007FD1DA /* Moya */,
+				EBD2B7202AE201B4007FD1DA /* SnapKit */,
+			);
 			productName = DearMyFriend;
 			productReference = 52D998132AD6A89600679B15 /* DearMyFriend.app */;
 			productType = "com.apple.product-type.application";
@@ -225,6 +310,13 @@
 				Base,
 			);
 			mainGroup = 52D9980A2AD6A89600679B15;
+			packageReferences = (
+				EBD2B70D2AE200BA007FD1DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				EBD2B7162AE200EF007FD1DA /* XCRemoteSwiftPackageReference "NMapsMap" */,
+				EBD2B7192AE2011C007FD1DA /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				EBD2B71C2AE20172007FD1DA /* XCRemoteSwiftPackageReference "Moya" */,
+				EBD2B71F2AE201B4007FD1DA /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 52D998142AD6A89600679B15 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -252,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52D998312AD6AB0100679B15 /* LoginViewController.swift in Sources */,
+				EBD2B7022AE1FC99007FD1DA /* FeedModel.swift in Sources */,
 				52D998332AD6AB0E00679B15 /* YouTubeViewController.swift in Sources */,
 				52D9984C2AD6B32F00679B15 /* Helper.swift in Sources */,
 				52D998562AD6CDF900679B15 /* TabBarController.swift in Sources */,
@@ -489,6 +582,92 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EBD2B70D2AE200BA007FD1DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+		EBD2B7162AE200EF007FD1DA /* XCRemoteSwiftPackageReference "NMapsMap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jaemyeong/NMapsMap.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		EBD2B7192AE2011C007FD1DA /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		EBD2B71C2AE20172007FD1DA /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.0;
+			};
+		};
+		EBD2B71F2AE201B4007FD1DA /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EBD2B70E2AE200BA007FD1DA /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBD2B70D2AE200BA007FD1DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		EBD2B7102AE200BA007FD1DA /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBD2B70D2AE200BA007FD1DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		EBD2B7122AE200BA007FD1DA /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBD2B70D2AE200BA007FD1DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		EBD2B7142AE200BA007FD1DA /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBD2B70D2AE200BA007FD1DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		EBD2B7172AE200EF007FD1DA /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBD2B7162AE200EF007FD1DA /* XCRemoteSwiftPackageReference "NMapsMap" */;
+			productName = NMapsMap;
+		};
+		EBD2B71A2AE2011C007FD1DA /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBD2B7192AE2011C007FD1DA /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		EBD2B71D2AE20172007FD1DA /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBD2B71C2AE20172007FD1DA /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		EBD2B7202AE201B4007FD1DA /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBD2B71F2AE201B4007FD1DA /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 52D9980B2AD6A89600679B15 /* Project object */;
 }
