@@ -59,7 +59,7 @@ class YouTubeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor(named: "view")        // navigationController?.isNavigationBarHidden = true
+        view.backgroundColor = UIColor(named: "view") // navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -309,4 +309,5 @@ extension YouTubeViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+
 //
