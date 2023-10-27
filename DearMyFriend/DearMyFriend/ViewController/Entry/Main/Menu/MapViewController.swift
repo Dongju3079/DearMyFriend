@@ -226,23 +226,19 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("###:)",searchResults)
-        
+
         if indexPath.row < recentSearches.count {
             let selectedSearch = recentSearches[indexPath.row]
             geocoder.geocodeAddressString(selectedSearch) { [weak self] placemarks, error in
                 if let placemark = placemarks?.first, let location = placemark.location {
                     let coordinate = location.coordinate
-                    self?.moveMapToLocation(coordinate)
-                    self?.searchResultsTableView.isHidden = true
+//                    self?.moveMapToLocation(coordinate)
+//                    self?.searchResultsTableView.isHidden = true
                     print("###:)",selectedSearch)
                 }
             }
-        } else {
-            let selectedItem = searchResults[indexPath.row - recentSearches.count]
-            if let item = selectedItem as? Item, let roadAddress = item.roadAddress {
-                searchLocationWithAddress(roadAddress)
-            }
         }
+        
     }
     func moveMapToLocation(_ coordinate: CLLocationCoordinate2D) {
         print("Moving to coordinate: \(coordinate.latitude), \(coordinate.longitude)")
