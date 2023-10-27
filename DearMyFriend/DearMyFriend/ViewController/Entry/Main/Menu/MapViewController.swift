@@ -227,6 +227,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("###:)",searchResults)
 
+
         if indexPath.row < recentSearches.count {
             let selectedSearch = recentSearches[indexPath.row]
             geocoder.geocodeAddressString(selectedSearch) { [weak self] placemarks, error in
@@ -236,6 +237,15 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 //                    self?.searchResultsTableView.isHidden = true
                     print("###:)",selectedSearch)
                 }
+                    self?.moveMapToLocation(coordinate)
+                    self?.searchResultsTableView.isHidden = true
+                    print("###:)",selectedSearch)
+                }
+            }
+        } else {
+            let selectedItem = searchResults[indexPath.row - recentSearches.count]
+            if let item = selectedItem as? Item, let roadAddress = item.roadAddress {
+                searchLocationWithAddress(roadAddress)
             }
         }
         
