@@ -10,7 +10,7 @@ class MapViewController: UIViewController {
     var locationManager = CLLocationManager()
     var naverMapView: NMFNaverMapView?
     let geocoder = CLGeocoder()
-    var searchResults: [String] = []
+    var searchResults: [(title: String, roadAddress: String)] = []
     let naverSearch = MoyaProvider<NaverSearchService>()
     let SearchResultCell = "SearchResultCell"
     var markers: [NMFMarker] = []
@@ -45,15 +45,11 @@ class MapViewController: UIViewController {
             self.view.addSubview(naverMapView)
         }
 
-
         setupButtonLayout()
         setupLocationManager()
         setupSearchController()
         addTableView()
-
-
     }
-
 
     private func createStyledButton(title: String) -> UIButton {
         let button = UIButton()
@@ -86,24 +82,21 @@ class MapViewController: UIViewController {
         showPetShopsButton.layer.cornerRadius = 10
     }
 
-
     func setupLocationManager() {
-        DispatchQueue.global().async {
-            self.locationManager.delegate
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 
-            if CLLocationManager.locationServicesEnabled() {
-                let status = self.locationManager.authorizationStatus
-                if status == .notDetermined {
-                    self.locationManager.requestWhenInUseAuthorization()
-                } else if status == .authorizedWhenInUse || status == .authorizedAlways {
-                    DispatchQueue.main.async {
-                        self.locationManager.startUpdatingLocation()
-                    }
+        if CLLocationManager.locationServicesEnabled() {
+            let status = self.locationManager.authorizationStatus
+            if status == .notDetermined {
+                self.locationManager.requestWhenInUseAuthorization()
+            } else if status == .authorizedWhenInUse || status == .authorizedAlways {
+                DispatchQueue.main.async {
+                    self.locationManager.startUpdatingLocation()
                 }
-            } else {
-                print("위치 서비스가 활성화되어 있지 않습니다.")
             }
+        } else {
+            print("위치 서비스가 활성화되어 있지 않습니다.")
         }
     }
 
@@ -128,7 +121,7 @@ class MapViewController: UIViewController {
         view.addSubview(searchResultsTableView)
     }
 
-    func handleSearchResults(_ results: [String]) {
+    func handleSearchResults(_ results: [(title: String, roadAddress: String)]) {
         searchResults = results
         searchResultsTableView.reloadData()
     }
@@ -139,7 +132,6 @@ class MapViewController: UIViewController {
 
     @objc func showPetShop() {
         searchLocalPlaces("서울")
-
     }
 }
 
@@ -271,83 +263,178 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 }
 extension MapViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+=======
+    @objc private func delayedSearch(_ searchController: UISearchController) {
+>>>>>>> c789a61 ([FIX] 검색어 입력시 딜레이 추가 텍스트입력될때마다 이동하거나 마커가 추가되는 버그 수정)
         if let searchText = searchController.searchBar.text {
             searchLocalPlaces(searchText)
         }
     }
+}
 
-    func searchLocalPlaces(_ query: String) {
-        naverSearch.request(.search(query: query, categories: ["동물병원", "펫샵"])) { [weak self] result in
-            switch result {
-            case .success(let response):
-                do {
-                    let decoder = JSONDecoder()
-                    let results = try decoder.decode(Welcome.self, from: response.data)
+    // MARK: - CLLocationManagerDelegate Extension
+    extension MapViewController: CLLocationManagerDelegate {
+        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            if let location = locations.last {
+                DispatchQueue.main.async {
+                    print("현재 위치: \(location.coordinate.latitude), \(location.coordinate.longitude)")
+                    self.addMarker(at: location.coordinate, title: "현재위치요~")
+                }
+            }
+        }
+    }
 
-                    if let mapView = self?.naverMapView?.mapView {
-                        for item in results.items {
-                            let title = item.title
-                            let phoneNumber = item.telephone
+    // MARK: - UISearchBarDelegate Extension
+    extension MapViewController: UISearchBarDelegate {
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.resignFirstResponder()
 
-                            var roadAddress: String? = item.roadAddress
+            if let searchText = searchBar.text {
+                searchLocalPlaces(searchText)
+            }
+        }
 
-                            if let roadAddress = roadAddress {
-                                print("Title: \(title), roadAddress: \(roadAddress), phoneNumber: \(phoneNumber)")
+        func addMarker(at coordinate: CLLocationCoordinate2D, title: String) {
+            guard let mapView = naverMapView?.mapView else {
+                return
+            }
 
-                                // 여기에서 roadAddress 값을 사용하여 위치를 찾아서 지도로 이동
-                                self?.searchLocationWithAddress(roadAddress)
-                                self?.selectedItem = item
+            let marker = NMFMarker()
+            marker.position = NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
+            marker.mapView = mapView
+            marker.captionText = title
 
-                            } else {
-                                let alertController = UIAlertController(title: "주소를 찾을 수 없습니다", message: "해당 장소의 주소 정보를 찾을 수 없습니다.", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-                                alertController.addAction(okAction)
-                                self?.present(alertController, animated: true, completion: nil)
+            markers.append(marker)
+        }
+    }
+
+    extension MapViewController: UITableViewDelegate, UITableViewDataSource {
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return searchResults.count + recentSearches.count
+        }
+
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultCell, for: indexPath)
+
+            let resultItem = searchResults[indexPath.row]
+            let title = resultItem.title
+            let roadAddress = resultItem.roadAddress
+
+            // 셀에 정보 표시
+            cell.textLabel?.text = title
+            cell.detailTextLabel?.text = roadAddress
+
+            return cell
+        }
+
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            if indexPath.row < recentSearches.count {
+                let selectedSearch = recentSearches[indexPath.row]
+                geocoder.geocodeAddressString(selectedSearch) { [weak self] placemarks, error in
+                    if let placemark = placemarks?.first, let location = placemark.location {
+                        self?.moveMapToLocation(location.coordinate)
+                        self?.addMarker(at: location.coordinate, title:selectedSearch )
+                    }
+                }
+            } else {
+                let resultIndex = indexPath.row - recentSearches.count
+                let selectedResultItem  = searchResults[resultIndex]
+
+
+                geocoder.geocodeAddressString(selectedResultItem.roadAddress) { [weak self] placemarks, error in
+                    if let placemark = placemarks?.first, let location = placemark.location {
+                        self?.moveMapToLocation(location.coordinate)
+                        self?.addMarker(at: location.coordinate, title:selectedResultItem.title )
+                    }
+                }
+            }
+        }
+
+        func moveMapToLocation(_ coordinate: CLLocationCoordinate2D) {
+            print("Moving to coordinate: \(coordinate.latitude), \(coordinate.longitude)")
+
+            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(from: coordinate))
+            if let mapView = naverMapView?.mapView {
+                mapView.moveCamera(cameraUpdate)
+            }
+
+            if let selectedItem = selectedItem {
+                let cleanTitle = selectedItem.cleanTitle()
+                addMarker(at: coordinate, title: cleanTitle)
+            }
+
+            //        if !searchResults.isEmpty {
+            searchResultsTableView.isHidden = true
+        }
+    }
+
+    extension MapViewController: UISearchResultsUpdating {
+        func updateSearchResults(for searchController: UISearchController) {
+            guard let searchText = searchController.searchBar.text,
+                  !searchText.isEmpty else { return }
+
+            NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                                   selector: #selector(delayedSearch(_:)),
+                                                   object: searchController)
+
+            perform(#selector(delayedSearch(_:)), with: searchController, afterDelay: 0.2)
+        }
+
+
+
+        func searchLocalPlaces(_ query: String) {
+            naverSearch.request(.search(query: query, categories: ["동물병원", "펫샵"])) { [weak self] result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decoder = JSONDecoder()
+                        let results = try decoder.decode(Welcome.self, from: response.data)
+
+                        if let mapView = self?.naverMapView?.mapView {
+                            for item in results.items {
+                                let title = item.title
+                                let phoneNumber = item.telephone
+
+                                var roadAddress: String? = item.roadAddress
+
+                                if let roadAddress = roadAddress {
+                                    print("Title: \(title), roadAddress: \(roadAddress), phoneNumber: \(phoneNumber)")
+
+                                    self?.searchLocationWithAddress(roadAddress)
+                                    self?.selectedItem = item
+                                } else {
+                                    let alertController = UIAlertController(title: "주소를 찾을 수 없습니다", message: "해당 장소의 주소 정보를 찾을 수 없습니다.", preferredStyle: .alert)
+                                    let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                                    alertController.addAction(okAction)
+                                    self?.present(alertController, animated: true, completion: nil)
+                                }
                             }
                         }
-                    }
 
-                    if let self = self {
-                        let placeNames = results.items.map { $0.cleanTitle() }
-                        self.handleSearchResults(placeNames)
+                        if let self = self {
+                            let placeInfos = results.items.map { (title: $0.cleanTitle(), roadAddress: $0.roadAddress ?? "") }
+                            self.handleSearchResults(placeInfos)
+                        }
+                    } catch {
+                        print("JSON decoding error: \(error)")
                     }
-                } catch {
-                    print("JSON decoding error: \(error)")
+                case .failure(let error):
+                    print("Network request error: \(error)")
                 }
-            case .failure(let error):
-                print("Network request error: \(error)")
             }
         }
     }
-//    func addMarkersFromSearchResults(_ items: [Item]) {
-//        if let mapView = self.naverMapView?.mapView {
-//            for item in items {
-//                // Item에서 위도와 경도를 추출
-//                if let mapx = Double(item.mapx), let mapy = Double(item.mapy) {
-//                    let coordinate = CLLocationCoordinate2D(latitude: mapy, longitude: mapx)
-//
-//                    // NMFMarker를 생성하고 지도에 추가
-//                    let marker = NMFMarker()
-//                    marker.position = NMGLatLng(from: coordinate)
-//                    marker.mapView = mapView
-//                    marker.captionText = item.title
-//                }
-//            }
-//        }
-//    }
 
-}
-extension MapViewController {
-    func searchLocationWithAddress(_ address: String) {
-        print("###:)",address)
-        geocoder.geocodeAddressString(address) { [weak self] placemarks, error in
-
-            if let placemark = placemarks?.first, let location = placemark.location {
-                let coordinate = location.coordinate
-                self?.moveMapToLocation(coordinate)
-            } else {
-                print("주소를 찿을수 없어예")
+    extension MapViewController {
+        func searchLocationWithAddress(_ address: String) {
+            print("###:)", address)
+            geocoder.geocodeAddressString(address) { [weak self] placemarks, error in
+                if let placemark = placemarks?.first, let location = placemark.location {
+                    let coordinate = location.coordinate
+                    self?.moveMapToLocation(coordinate)
+                } else {
+                    print("주소를 찿을수 없어예")
+                }
             }
         }
     }
-}
