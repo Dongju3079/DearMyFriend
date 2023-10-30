@@ -314,18 +314,22 @@ extension MapViewController: UISearchResultsUpdating {
         }
 
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultCell, for: indexPath)
+            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: SearchResultCell)
 
-            let resultItem = searchResults[indexPath.row]
-            let title = resultItem.title
-            let roadAddress = resultItem.roadAddress
+                   if indexPath.row < recentSearches.count {
+                       cell.textLabel?.text = recentSearches[indexPath.row]
+                   } else {
+                       let resultIndex = indexPath.row - recentSearches.count
+                       let resultItem = searchResults[resultIndex]
+                       cell.textLabel?.text = resultItem.title
 
-            // 셀에 정보 표시
-            cell.textLabel?.text = title
-            cell.detailTextLabel?.text = roadAddress
+                       // Add road address to detailTextLabel
+                       cell.detailTextLabel?.text = resultItem.roadAddress
+                   }
 
-            return cell
-        }
+                   return cell
+               }
+
 
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             if indexPath.row < recentSearches.count {
@@ -389,6 +393,8 @@ extension MapViewController: UISearchResultsUpdating {
                     do {
                         let decoder = JSONDecoder()
                         let results = try decoder.decode(Welcome.self, from: response.data)
+                        var searchResultsWithAddresses: [(title: String, roadAddress: String)] = []
+
 
                         if let mapView = self?.naverMapView?.mapView {
                             for item in results.items {
