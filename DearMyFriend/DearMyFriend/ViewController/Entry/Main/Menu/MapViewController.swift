@@ -131,7 +131,7 @@ class MapViewController: UIViewController {
     }
 
     @objc func showPetShop() {
-        searchLocalPlaces("서울")
+        searchLocalPlaces("애완동물 용품점")
     }
 }
 
@@ -387,7 +387,7 @@ extension MapViewController: UISearchResultsUpdating {
 
 
         func searchLocalPlaces(_ query: String) {
-            naverSearch.request(.search(query: query, categories: ["동물병원", "펫샵"])) { [weak self] result in
+            naverSearch.request(.search(query: query)) { [weak self] result in
                 switch result {
                 case .success(let response):
                     do {
