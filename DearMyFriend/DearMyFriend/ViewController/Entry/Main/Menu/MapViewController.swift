@@ -263,9 +263,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
 }
 extension MapViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-=======
     @objc private func delayedSearch(_ searchController: UISearchController) {
->>>>>>> c789a61 ([FIX] 검색어 입력시 딜레이 추가 텍스트입력될때마다 이동하거나 마커가 추가되는 버그 수정)
         if let searchText = searchController.searchBar.text {
             searchLocalPlaces(searchText)
         }
