@@ -302,6 +302,8 @@
 				EB5EDEE12AEA4030002075F9 /* UserModel.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
 		52EFE7A72AE7ADBE00770F03 /* PopularityView */ = {
 			isa = PBXGroup;
 			children = (
