@@ -1,0 +1,6 @@
+framework module Pods_DearMyFriend {
+  umbrella header "Pods-DearMyFriend-umbrella.h"
+
+  export *
+  module * { export * }
+}
