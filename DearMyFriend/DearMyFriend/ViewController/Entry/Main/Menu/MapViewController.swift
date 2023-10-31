@@ -4,7 +4,7 @@ import CoreLocation
 import Moya
 import SnapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, NMFMapViewDelegate {
     var selectedItem: Item?
     var locationManager = CLLocationManager()
     var naverMapView: NMFNaverMapView?
@@ -30,6 +30,49 @@ class MapViewController: UIViewController {
         return button
     }()
 
+    private lazy var modalView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 10
+        return view
+    }()
+
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("닫기", for: .normal)
+        button.backgroundColor = .red
+        button.addTarget(self, action: #selector(closeModal), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var locationNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.textAlignment = .center
+        return label
+    }()
+
+    private lazy var roadAddressLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = .center
+        return label
+    }()
+
+    private lazy var phoneNumberLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = .center
+        return label
+    }()
+
+    private lazy var operatingHoursLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = .center
+        return label
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,6 +81,7 @@ class MapViewController: UIViewController {
         naverMapView = NMFNaverMapView(frame: self.view.frame)
         naverMapView?.showLocationButton = true
         naverMapView?.mapView.isScrollGestureEnabled = true
+        naverMapView?.mapView.delegate = self
 
         if let naverMapView = naverMapView {
             self.view.addSubview(naverMapView)
@@ -131,6 +175,86 @@ class MapViewController: UIViewController {
     @objc func showPetShop() {
         searchLocalPlaces("애완동물 용품점")
     }
+
+    @objc func showHalfModal() {
+        let modalView = UIView()
+        modalView.backgroundColor = .white
+        modalView.layer.cornerRadius = 10
+        self.view.addSubview(modalView)
+
+        locationNameLabel.text = selectedItem?.title
+        roadAddressLabel.text = selectedItem?.roadAddress
+        phoneNumberLabel.text = selectedItem?.telephone
+
+        modalView.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.bottom.equalToSuperview().offset(-16)
+            $0.height.equalTo(300)
+        }
+
+        locationNameLabel.snp.makeConstraints {
+            $0.top.equalTo(modalView).offset(16)
+            $0.leading.equalTo(modalView).offset(16)
+            $0.trailing.equalTo(modalView).offset(-16)
+        }
+
+        roadAddressLabel.snp.makeConstraints {
+            $0.top.equalTo(locationNameLabel.snp.bottom).offset(16)
+            $0.leading.equalTo(modalView).offset(16)
+            $0.trailing.equalTo(modalView).offset(-16)
+        }
+
+        phoneNumberLabel.snp.makeConstraints {
+            $0.top.equalTo(roadAddressLabel.snp.bottom).offset(16)
+            $0.leading.equalTo(modalView).offset(16)
+            $0.trailing.equalTo(modalView).offset(-16)
+        }
+
+        operatingHoursLabel.snp.makeConstraints {
+            $0.top.equalTo(phoneNumberLabel.snp.bottom).offset(16)
+            $0.leading.equalTo(modalView).offset(16)
+            $0.trailing.equalTo(modalView).offset(-16)
+        }
+
+        // 닫기 버튼을 생성하고 액션을 추가합니다.
+        let closeButton = UIButton()
+        closeButton.setTitle("닫기", for: .normal)
+        closeButton.backgroundColor = .red
+        closeButton.addTarget(self, action: #selector(closeModal), for: .touchUpInside)
+        modalView.addSubview(closeButton)
+
+        closeButton.snp.makeConstraints {
+            $0.top.equalTo(modalView).offset(16)
+            $0.trailing.equalTo(modalView).offset(-16)
+            $0.width.equalTo(60)
+            $0.height.equalTo(30)
+        }
+
+        func mapView(_ mapView: NMFMapView, didTap marker: NMFMarker) {
+            let title = marker.captionText
+                print("마커 클릭: \(title)")
+                showHalfModal()
+            }
+    }
+
+    @objc func closeModal() {
+        // 모달 뷰를 부모 뷰에서 제거합니다.
+        modalView.removeFromSuperview()
+    }
+
+    func addMarker(at coordinate: CLLocationCoordinate2D, title: String) {
+        guard let mapView = naverMapView?.mapView else {
+            return
+        }
+
+        let marker = NMFMarker()
+        marker.position = NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
+        marker.mapView = mapView
+        marker.captionText = title
+
+        markers.append(marker)
+    }
 }
 
 // MARK: - CLLocationManagerDelegate Extension
@@ -154,19 +278,6 @@ extension MapViewController: UISearchBarDelegate {
             searchLocalPlaces(searchText)
         }
     }
-
-    func addMarker(at coordinate: CLLocationCoordinate2D, title: String) {
-        guard let mapView = naverMapView?.mapView else {
-            return
-        }
-
-        let marker = NMFMarker()
-        marker.position = NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
-        marker.mapView = mapView
-        marker.captionText = title
-
-        markers.append(marker)
-    }
 }
 
 extension MapViewController: UITableViewDelegate, UITableViewDataSource {
@@ -184,7 +295,6 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
             let resultItem = searchResults[resultIndex]
             cell.textLabel?.text = resultItem.title
 
-            // Add road address to detailTextLabel
             cell.detailTextLabel?.text = resultItem.roadAddress
         }
 
@@ -245,40 +355,40 @@ extension MapViewController {
     func searchLocalPlaces(_ query: String) {
         naverSearch.request(.search(query: query)) { [weak self] result in
             switch result {
-                case .success(let response):
-                    do {
-                        let decoder = JSONDecoder()
-                        let results = try decoder.decode(Welcome.self, from: response.data)
-                        var searchResultsWithAddresses: [(title: String, roadAddress: String)] = []
+            case .success(let response):
+                do {
+                    let decoder = JSONDecoder()
+                    let results = try decoder.decode(Welcome.self, from: response.data)
+                    var searchResultsWithAddresses: [(title: String, roadAddress: String)] = []
 
-                        if let mapView = self?.naverMapView?.mapView {
-                            for item in results.items {
-                                let title = item.title
-                                let phoneNumber = item.telephone
-                                var roadAddress: String? = item.roadAddress
+                    if let mapView = self?.naverMapView?.mapView {
+                        for item in results.items {
+                            let title = item.title
+                            let phoneNumber = item.telephone
+                            var roadAddress: String? = item.roadAddress
 
-                                if let roadAddress = roadAddress {
-                                    print("Title: \(title), roadAddress: \(roadAddress), phoneNumber: \(phoneNumber)")
-                                    // self?.searchLocationWithAddress(roadAddress)
-                                    // self?.selectedItem = item
-                                } else {
-                                    let alertController = UIAlertController(title: "주소를 찾을 수 없습니다", message: "해당 장소의 주소 정보를 찾을 수 없습니다.", preferredStyle: .alert)
-                                    let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-                                    alertController.addAction(okAction)
-                                    self?.present(alertController, animated: true, completion: nil)
-                                }
+                            if let roadAddress = roadAddress {
+                                print("Title: \(title), roadAddress: \(roadAddress), phoneNumber: \(phoneNumber)")
+                                // self?.searchLocationWithAddress(roadAddress)
+                                // self?.selectedItem = item
+                            } else {
+                                let alertController = UIAlertController(title: "주소를 찾을 수 없습니다", message: "해당 장소의 주소 정보를 찾을 수 없습니다.", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                                alertController.addAction(okAction)
+                                self?.present(alertController, animated: true, completion: nil)
                             }
                         }
-
-                        if let self = self {
-                            let placeInfos = results.items.map { (title: $0.cleanTitle(), roadAddress: $0.roadAddress ?? "") }
-                            self.handleSearchResults(placeInfos)
-                        }
-                    } catch {
-                        print("JSON decoding error: \(error)")
                     }
-                case .failure(let error):
-                    print("Network request error: \(error)")
+
+                    if let self = self {
+                        let placeInfos = results.items.map { (title: $0.cleanTitle(), roadAddress: $0.roadAddress ?? "") }
+                        self.handleSearchResults(placeInfos)
+                    }
+                } catch {
+                    print("JSON decoding error: \(error)")
+                }
+            case .failure(let error):
+                print("Network request error: \(error)")
             }
         }
     }
