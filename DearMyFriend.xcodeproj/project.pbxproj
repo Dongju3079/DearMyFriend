@@ -11,6 +11,7 @@
 		372923422AF3C191009993F8 /* CalculInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372923412AF3C191009993F8 /* CalculInfo.swift */; };
 		4E275AB02AE27D27005146AA /* SearchAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E275AAF2AE27D27005146AA /* SearchAPIManager.swift */; };
 		4E275AB22AE27D3A005146AA /* NaverSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E275AB12AE27D39005146AA /* NaverSearchService.swift */; };
+		4E927F872AFB36FB00181FA7 /* ImageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E927F862AFB36FB00181FA7 /* ImageAPIService.swift */; };
 		4EE0BF602AFA365D00572746 /* ImageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0BF5F2AFA365D00572746 /* ImageAPIService.swift */; };
 		523A7B252AF8E51200EA4D5F /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523A7B242AF8E51200EA4D5F /* ForgotPasswordView.swift */; };
 		523A7B272AF8E6F500EA4D5F /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523A7B262AF8E6F500EA4D5F /* ResetPasswordView.swift */; };
@@ -166,6 +167,7 @@
 		372923412AF3C191009993F8 /* CalculInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculInfo.swift; sourceTree = "<group>"; };
 		4E275AAF2AE27D27005146AA /* SearchAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPIManager.swift; sourceTree = "<group>"; };
 		4E275AB12AE27D39005146AA /* NaverSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchService.swift; sourceTree = "<group>"; };
+		4E927F862AFB36FB00181FA7 /* ImageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIService.swift; sourceTree = "<group>"; };
 		4EE0BF5F2AFA365D00572746 /* ImageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIService.swift; sourceTree = "<group>"; };
 		523A7B232AF8E2DD00EA4D5F /* DearMyFriend.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DearMyFriend.entitlements; sourceTree = "<group>"; };
 		523A7B242AF8E51200EA4D5F /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
@@ -554,6 +556,7 @@
 			isa = PBXGroup;
 			children = (
 				52D9983A2AD6AB9B00679B15 /* MapViewController.swift */,
+				4E927F862AFB36FB00181FA7 /* ImageAPIService.swift */,
 				52D998322AD6AB0E00679B15 /* YouTubeViewController.swift */,
 				372923412AF3C191009993F8 /* CalculInfo.swift */,
 				52D998342AD6AB1800679B15 /* CalculatorViewController.swift */,
@@ -905,6 +908,7 @@
 				52D998172AD6A89600679B15 /* AppDelegate.swift in Sources */,
 				EBD2B7522AE2235C007FD1DA /* FeedFirebaseError.swift in Sources */,
 				52D9983F2AD6ABB500679B15 /* StoreViewController.swift in Sources */,
+				4E927F872AFB36FB00181FA7 /* ImageAPIService.swift in Sources */,
 				EB5EDEEA2AEF4FBF002075F9 /* CommentTitleView.swift in Sources */,
 				528DDAA52AF88A7300E08DEC /* Login.swift in Sources */,
 				52D9982B2AD6AADC00679B15 /* FeedViewController.swift in Sources */,

@@ -99,7 +99,7 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
 
         naverMapView = NMFNaverMapView(frame: self.view.frame)
         naverMapView?.showLocationButton = true
-        naverMapView?.mapView.isScrollGestureEnabled = true
+        naverMapView?.mapView.isScrollGestureEnabled = false
         naverMapView?.mapView.delegate = self
 
         if let naverMapView = naverMapView {
@@ -194,11 +194,15 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
                    return
                }
 
-               searchResults.removeAll()
-               searchStart += 1  // 다시 첫 번째 페이지부터 시작
-               searchLocalPlaces("동물병원")
+        searchResults.removeAll()
+           searchStart += 1 // 다시 첫 번째 페이지부터 시작
 
+           if let currentLocation = locationManager.location {
+               addMarker(at: currentLocation.coordinate, title: "현재 위치입니다.")
            }
+
+           searchLocalPlaces("동물병원")
+       }
 
     @objc func closeModal() {
         modalView.removeFromSuperview()
