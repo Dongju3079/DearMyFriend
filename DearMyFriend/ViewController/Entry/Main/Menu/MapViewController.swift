@@ -25,6 +25,7 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
     var modalData: (title: String, roadAddress: String, telephone: String)?
     var searchRadius: CLLocationDistance = 1000
 
+
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -95,6 +96,8 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+
         searchResultsTableView.register(UITableViewCell.self, forCellReuseIdentifier: SearchResultCell)
 
         naverMapView = NMFNaverMapView(frame: self.view.frame)
@@ -102,14 +105,22 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
         naverMapView?.mapView.isScrollGestureEnabled = false
         naverMapView?.mapView.delegate = self
 
+        setupSearchController()
+        addTableView()
+        
+
         if let naverMapView = naverMapView {
             self.view.addSubview(naverMapView)
         }
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+//           self.view.addGestureRecognizer(tapGesture)
+//       }
+//
+//       @objc func dismissKeyboard() {
+//           self.view.endEditing(true)
 
         setupButtonLayout()
         setupLocationManager()
-        setupSearchController()
-        addTableView()
 
     }
 
@@ -166,7 +177,11 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
         searchController.searchBar.placeholder = "찿으시는 매장을 입력하세요!"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+//        searchController.view.addGestureRecognizer(tapGesture)
+
     }
+
 
 
     func addTableView() {
