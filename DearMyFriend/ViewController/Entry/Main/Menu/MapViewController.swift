@@ -24,6 +24,8 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
     var recentSearches: [String] = []
     var modalData: (title: String, roadAddress: String, telephone: String)?
     var searchRadius: CLLocationDistance = 1000
+    var selectedResult: (title: String, roadAddress: String, telephone: String)?
+
 
 
     private lazy var imageView: UIImageView = {
@@ -107,17 +109,17 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
 
         setupSearchController()
         addTableView()
-        
+
 
         if let naverMapView = naverMapView {
             self.view.addSubview(naverMapView)
         }
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-//           self.view.addGestureRecognizer(tapGesture)
-//       }
-//
-//       @objc func dismissKeyboard() {
-//           self.view.endEditing(true)
+        //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        //           self.view.addGestureRecognizer(tapGesture)
+        //       }
+        //
+        //       @objc func dismissKeyboard() {
+        //           self.view.endEditing(true)
 
         setupButtonLayout()
         setupLocationManager()
@@ -135,7 +137,7 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
 
     private func setupButtonLayout() {
         view.addSubview(showAnimalHospitalButton)
-//        view.addSubview(showPetShopsButton)
+        //        view.addSubview(showPetShopsButton)
 
         showAnimalHospitalButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(12)
@@ -177,8 +179,8 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
         searchController.searchBar.placeholder = "찿으시는 매장을 입력하세요!"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-//        searchController.view.addGestureRecognizer(tapGesture)
+        //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        //        searchController.view.addGestureRecognizer(tapGesture)
 
     }
 
@@ -193,31 +195,30 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
 
     func handleSearchResults(_ results: [(title: String, roadAddress: String)]) {
         if searchStart == 1 {
-                   searchResults = results
-               } else {
-                   searchResults.append(contentsOf: results)
-               }
+            searchResults = results
+        } else {
+            searchResults.append(contentsOf: results)
+        }
 
-               isLoadingResults = false
-               searchResultsTableView.reloadData()
-           }
+        isLoadingResults = false
+        searchResultsTableView.reloadData()
+    }
 
 
 
     @objc func showAnimalHospital() {
         if isLoadingResults {
-                   return
-               }
+            return
+        }
 
         searchResults.removeAll()
-           searchStart += 1 // 다시 첫 번째 페이지부터 시작
+        searchStart = 1 // 다시 첫 번째 페이지부터 시작
 
-           if let currentLocation = locationManager.location {
-               addMarker(at: currentLocation.coordinate, title: "현재 위치입니다.")
-           }
-
-           searchLocalPlaces("동물병원")
-       }
+        if let currentLocation = locationManager.location {
+            addMarker(at: currentLocation.coordinate, title: "현재 위치입니다.")
+            searchLocalPlaces("동물병원")
+        }
+    }
 
     @objc func closeModal() {
         modalView.removeFromSuperview()
@@ -316,7 +317,7 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
         marker.touchHandler = { [weak self] overlay in
             if let marker = overlay as? NMFMarker {
                 let selectedItem = self?.searchResults.first(where: { $0.title == marker.captionText })
-//                self?.modalData = (title: selectedItem?.title ?? "", roadAddress: selectedItem?.roadAddress ?? "")
+                //                self?.modalData = (title: selectedItem?.title ?? "", roadAddress: selectedItem?.roadAddress ?? "")
                 self?.showHalfModal()
             }
             return true
@@ -330,12 +331,12 @@ class MapViewController: UIViewController, NMFMapViewCameraDelegate, NMFMapViewD
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-                print("현재 위치: \(location.coordinate.latitude), \(location.coordinate.longitude)")
-                self.addMarker(at: location.coordinate, title: "현재 위치입니다.")
+            print("현재 위치: \(location.coordinate.latitude), \(location.coordinate.longitude)")
+            self.addMarker(at: location.coordinate, title: "현재 위치입니다.")
 
-            }
         }
     }
+}
 
 // MARK: - UISearchBarDelegate Extension
 extension MapViewController: UISearchBarDelegate {
@@ -373,17 +374,19 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
                 if let placemark = placemarks?.first, let location = placemark.location {
                     self?.moveMapToLocation(location.coordinate)
                     self?.addMarker(at: location.coordinate, title: selectedSearch)
+                    self?.modalData = (title: selectedSearch, roadAddress: selectedSearch, telephone: "")
+                    self?.showHalfModal()
                 }
             }
         } else {
             let resultIndex = indexPath.row - recentSearches.count
-            let selectedResultItem = searchResults[resultIndex]
+            let selectedResult = searchResults[resultIndex]
 
-            geocoder.geocodeAddressString(selectedResultItem.roadAddress) { [weak self] placemarks, error in
+            geocoder.geocodeAddressString(selectedResult.roadAddress) { [weak self] placemarks, error in
                 if let placemark = placemarks?.first, let location = placemark.location {
                     self?.moveMapToLocation(location.coordinate)
-                    self?.addMarker(at: location.coordinate, title: selectedResultItem.title)
-                    self?.modalData = (title: selectedResultItem.title, roadAddress: selectedResultItem.roadAddress, telephone: "")
+                    self?.addMarker(at: location.coordinate, title: selectedResult.title)
+                    self?.modalData = (title: selectedResult.title, roadAddress: selectedResult.roadAddress, telephone: "")
                     self?.showHalfModal()
                 }
             }
@@ -435,51 +438,46 @@ extension MapViewController {
         searchResults.removeAll()
         searchStart = 1
 
-
         isLoadingResults = true
         let pageSize = 10
 
-        naverSearch.request(.search(query: query)) { [weak self] result in
-            switch result {
-            case .success(let response):
-                do {
-                    let decoder = JSONDecoder()
-                    let results = try decoder.decode(Welcome.self, from: response.data)
-                    var searchResultsWithAddresses: [(title: String, roadAddress: String, telephone: String)] = []
+        if let currentLocation = locationManager.location {
+            naverSearch.request(.search(query: query, lat: currentLocation.coordinate.latitude, lng: currentLocation.coordinate.longitude)) { [weak self] result in
+                   switch result {
+                   case .success(let response):
+                       do {
+                           let decoder = JSONDecoder()
+                           let results = try decoder.decode(Welcome.self, from: response.data)
 
-                    if let mapView = self?.naverMapView?.mapView {
+
                         for item in results.items {
                             let title = item.title
-                            let phoneNumber = item.telephone
-                            let roadAddress: String? = item.roadAddress
+                            let roadAddress = item.roadAddress ?? ""
+                            let phoneNumber = item.telephone ?? ""
 
-                            if let roadAddress = roadAddress {
-                                print("Title: \(title), roadAddress: \(roadAddress), phoneNumber: \(phoneNumber)")
-                                //                                self?.geocodeAndAddMarker(for: title, roadAddress: roadAddress)
-                            } else {
-                                let alertController = UIAlertController(title: "주소를 찾을 수 없습니다", message: "해당 장소의 주소 정보를 찾을 수 없습니다.", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-                                alertController.addAction(okAction)
-                                self?.present(alertController, animated: true, completion: nil)
+                            self?.searchResults.append((title: title, roadAddress: roadAddress))
+
+
+                            // 주소를 좌표로 변환하여 마커 추가
+                            self?.geocoder.geocodeAddressString(roadAddress) { placemarks, error in
+                                if let coordinate = placemarks?.first?.location?.coordinate {
+                                    self?.addMarker(at: coordinate, title: title)
+                                }
                             }
                         }
+                        self?.searchStart += pageSize
+                    } catch {
+                        print("JSON decoding error: \(error)")
                     }
-
-                    if let self = self {
-                        let placeInfos = results.items.map { (title: $0.cleanTitle(), roadAddress: $0.roadAddress ?? "") }
-                        self.handleSearchResults(placeInfos)
-                    }
-
-                    self?.searchStart += pageSize
-                } catch {
-                    print("JSON decoding error: \(error)")
+                case .failure(let error):
+                    print("Network request error: \(error)")
                 }
-            case .failure(let error):
-                print("Network request error: \(error)")
+                self?.isLoadingResults = false
             }
-            self?.isLoadingResults = false
         }
     }
+}
+
 //    func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
 //        if reason == NMFMapChangedByGesture { // 사용자 제스처에 의해 지도가 이동된 경우
 //            let cameraPosition = mapView.cameraPosition
@@ -500,7 +498,6 @@ extension MapViewController {
 //        }
 //    }
 
-}
 extension MapViewController {
     func searchImage(query: String, completion: @escaping (String?) -> Void) {
         print("searchImage 함수가 호출되었습니다. query: \(query)")
